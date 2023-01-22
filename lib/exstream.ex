@@ -1,18 +1,19 @@
 defmodule Exstream do
-  @moduledoc """
-  Documentation for `Exstream`.
-  """
 
-  @doc """
-  Hello world.
+  def get_packets({ result, 0 }) do
+    result
+    |> Jason.decode!()
+    |> Map.get("packets")
+  end
 
-  ## Examples
-
-      iex> Exstream.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def probe(file) do
+    System.cmd("ffprobe", [
+      "-i", file,
+      "-show_entries", "packet=pos,pts_time,flags",
+      "-select_streams", "v",
+      "-of", "json",
+      "-v", "0"
+    ])
+    |> get_packets()
   end
 end
