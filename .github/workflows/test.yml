@@ -19,7 +19,7 @@ jobs:
         elixir: [ '1.14.3' ]
     steps:
       - uses: actions/checkout@v2
-
+      - uses: FedericoCarboni/setup-ffmpeg@v2
       - uses: erlef/setup-beam@v1
         with:
           otp-version: ${{matrix.otp}}
