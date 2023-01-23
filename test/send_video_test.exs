@@ -1,4 +1,4 @@
-defmodule ExstreamTest do
+defmodule SendVideoTest do
   use ExUnit.Case
   use Plug.Test
 
