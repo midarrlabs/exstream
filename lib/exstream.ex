@@ -1,5 +1,9 @@
 defmodule Exstream do
 
+  def get_closest_packet_to_byte(packets, byte) do
+    Enum.min_by(packets, fn x -> abs(String.to_integer(x["pos"]) - byte) end)
+  end
+
   def get_packets({ result, 0 }) do
     result
     |> Jason.decode!()
