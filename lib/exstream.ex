@@ -6,7 +6,7 @@ defmodule Exstream do
     |> Map.get("packets")
   end
 
-  def probe(file) do
+  def probe_for_packets(file) do
     System.cmd("ffprobe", [
       "-i", file,
       "-show_entries", "packet=pos,pts_time,flags",
