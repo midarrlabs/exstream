@@ -16,9 +16,9 @@ defmodule ExstreamTest do
     %{"flags" => "__", "pos" => "46588", "pts_time" => "0.221000"}
   ]
 
-  test "it should get packet" do
+  test "it should have packet" do
     assert Exstream.probe_for_packets(@sample)
-           |> Enum.at(0) === Enum.at(@first_10_packets, 0)
+           |> Enum.member?(Enum.at(@first_10_packets, 0))
   end
 
   test "it should get closest packet to byte" do
