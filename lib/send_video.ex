@@ -46,7 +46,7 @@ defmodule Exstream.SendVideo do
 
   def init(default), do: default
 
-  def call(%Plug.Conn{req_headers: headers} = conn, file) do
-    send_video(conn, headers, file)
+  def call(%Plug.Conn{req_headers: headers} = conn, path) do
+    send_video(conn, headers, path)
   end
 end
