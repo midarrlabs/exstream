@@ -28,13 +28,17 @@ defmodule Exstream do
     |> handle_range(conn |> put_resp_header("content-type", "video/mp4"), path, File.stat!(path).size)
   end
 
+  def get_closest_packet_to_byte(packets, byte) do
+    Enum.min_by(packets, fn x -> abs(String.to_integer(x["pos"]) - byte) end)
+  end
+
   def get_packets({ result, 0 }) do
     result
     |> Jason.decode!()
     |> Map.get("packets")
   end
 
-  def probe(file) do
+  def probe_for_packets(file) do
     System.cmd("ffprobe", [
       "-i", file,
       "-show_entries", "packet=pos,pts_time,flags",

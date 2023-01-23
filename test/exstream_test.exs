@@ -51,8 +51,31 @@ defmodule ExstreamTest do
     assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-1/16351754"})
   end
 
+  @first_10_packets [
+    %{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"},
+    %{"flags" => "__", "pos" => "5300", "pts_time" => "0.071000"},
+    %{"flags" => "__", "pos" => "6583", "pts_time" => "0.088000"},
+    %{"flags" => "__", "pos" => "17447", "pts_time" => "0.121000"},
+    %{"flags" => "__", "pos" => "26303", "pts_time" => "0.104000"},
+    %{"flags" => "__", "pos" => "26911", "pts_time" => "0.138000"},
+    %{"flags" => "__", "pos" => "31080", "pts_time" => "0.188000"},
+    %{"flags" => "__", "pos" => "38352", "pts_time" => "0.154000"},
+    %{"flags" => "__", "pos" => "44880", "pts_time" => "0.171000"},
+    %{"flags" => "__", "pos" => "46588", "pts_time" => "0.221000"}
+  ]
+
   test "it should have packet" do
-    assert Exstream.probe(@path)
+    assert Exstream.probe_for_packets(@path)
            |> Enum.at(0) === %{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"}
+  end
+
+  test "it should get packet" do
+    assert Exstream.probe_for_packets(@path)
+           |> Enum.at(0) === Enum.at(@first_10_packets, 0)
+  end
+
+  test "it should get closest packet to byte" do
+    assert Exstream.probe_for_packets(@path)
+           |> Exstream.get_closest_packet_to_byte(24000) === Enum.at(@first_10_packets, 4)
   end
 end
