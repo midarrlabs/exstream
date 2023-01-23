@@ -2,7 +2,7 @@ defmodule SendVideoTest do
   use ExUnit.Case
   use Plug.Test
 
-  @sample "support/sample_1080_libx264_aac_30s_video.mkv"
+  @sample "test/fixtures/sample_1080_libx264_aac_30s_video.mkv"
 
   test "it should start" do
 
