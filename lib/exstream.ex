@@ -4,24 +4,31 @@ defmodule Exstream do
     Enum.min_by(packets, fn x -> abs(String.to_integer(x["pos"]) - byte) end)
   end
 
-  def get_packets({ result, 0 }) do
-    result
-    |> Jason.decode!()
-    |> Map.get("packets")
+  def get_packets(%{"packets" => packets}) do
+    packets
   end
 
-  def get_timestamp(%{ "pts_time" => timestamp }) do
+  def get_duration(%{"format" => %{"duration" => duration}}) do
+    duration
+  end
+
+  def get_timestamp(%{"pts_time" => timestamp}) do
     timestamp
   end
 
-  def probe_for_packets(file) do
+  def get_result({ result, 0 }) do
+    result
+  end
+
+  def probe(file) do
     System.cmd("ffprobe", [
       "-i", file,
-      "-show_entries", "packet=pos,pts_time,flags",
+      "-show_entries", "format=duration:packet=pos,pts_time,flags",
       "-select_streams", "v",
       "-of", "json",
       "-v", "0"
     ])
-    |> get_packets()
+    |> get_result()
+    |> Jason.decode!()
   end
 end

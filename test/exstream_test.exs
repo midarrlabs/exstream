@@ -17,7 +17,10 @@ defmodule ExstreamTest do
   ]
 
   setup do
-    [packets: Exstream.probe_for_packets(@sample)]
+    [
+      packets: Exstream.probe(@sample) |> Exstream.get_packets(),
+      duration: Exstream.probe(@sample) |> Exstream.get_duration(),
+    ]
   end
 
   test "it should have packet", context do
@@ -34,5 +37,9 @@ defmodule ExstreamTest do
     assert context[:packets]
            |> Enum.at(0)
            |> Exstream.get_timestamp() === "0.054000"
+  end
+
+  test "it should get total duration", context do
+    assert context[:duration] === "30.021000"
   end
 end
