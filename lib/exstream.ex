@@ -10,6 +10,10 @@ defmodule Exstream do
     |> Map.get("packets")
   end
 
+  def get_timestamp(%{ "pts_time" => timestamp }) do
+    timestamp
+  end
+
   def probe_for_packets(file) do
     System.cmd("ffprobe", [
       "-i", file,

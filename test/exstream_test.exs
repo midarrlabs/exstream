@@ -27,4 +27,10 @@ defmodule ExstreamTest do
   test "it should get closest packet to byte", context do
     assert context[:packets] |> Exstream.get_closest_packet_to_byte(24000) === Enum.at(@first_10_packets, 4)
   end
+
+  test "it should get timestamp", context do
+    assert context[:packets]
+           |> Enum.at(0)
+           |> Exstream.get_timestamp() === "0.054000"
+  end
 end
