@@ -39,7 +39,7 @@ defmodule ExstreamTest do
            |> Exstream.get_timestamp() === "0.054000"
   end
 
-  test "it should get total duration", context do
+  test "it should get duration", context do
     assert context[:duration] === "30.021000"
   end
 end
