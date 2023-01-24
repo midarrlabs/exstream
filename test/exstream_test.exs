@@ -19,7 +19,7 @@ defmodule ExstreamTest do
   setup do
     [
       packets: Exstream.probe(@sample) |> Exstream.get_packets(),
-      duration: Exstream.probe(@sample) |> Exstream.get_duration(),
+      duration: Exstream.probe(@sample) |> Exstream.get_duration()
     ]
   end
 
