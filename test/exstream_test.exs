@@ -16,23 +16,23 @@ defmodule ExstreamTest do
     %{"flags" => "__", "pos" => "46588", "pts_time" => "0.221000"}
   ]
 
-  test "it should get timestamp" do
+  test "it should get start" do
     assert Exstream.get_start(@path, 18447) === 0.121
   end
 
-  test "it should get timestamp as string" do
+  test "it should get start string" do
     assert Exstream.get_start_string(@path, 18447) === "0.121"
   end
 
-  test "it should get timestamp step 3" do
+  test "it should get end 3" do
     assert Exstream.get_end(@path, 0.054) === "3"
   end
 
-  test "it should get timestamp step 9" do
+  test "it should get end 9" do
     assert Exstream.get_end(@path, 6.054) === "9"
   end
 
-  test "it should get timestamp step 21" do
+  test "it should get end 21" do
     assert Exstream.get_end(@path, 18.054) === "21"
   end
 end
