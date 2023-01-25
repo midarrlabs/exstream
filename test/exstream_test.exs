@@ -45,6 +45,11 @@ defmodule ExstreamTest do
   
   test "it should get 1/10 duration", context do
     assert context[:duration]
-           |> Exstream.get_one_tenth() === 3.0021
+           |> Exstream.get_one_tenth() === 3
+  end
+  
+  test "it should get duration steps", context do
+    assert context[:duration]
+           |> Exstream.get_steps() === [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
   end
 end
