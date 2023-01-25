@@ -3,7 +3,7 @@ defmodule ExstreamTest do
 
   @sample "test/fixtures/sample_1080_libx264_aac_30s_video.mkv"
 
-  @first_10_packets [
+  [
     %{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"},
     %{"flags" => "__", "pos" => "5300", "pts_time" => "0.071000"},
     %{"flags" => "__", "pos" => "6583", "pts_time" => "0.088000"},
