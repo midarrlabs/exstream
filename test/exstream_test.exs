@@ -17,7 +17,11 @@ defmodule ExstreamTest do
   ]
 
   test "it should get timestamp" do
-    assert Exstream.get_start_timestamp_for_path(@path, 18447) === "0.121"
+    assert Exstream.get_start_timestamp_for_path(@path, 18447) === 0.121
+  end
+
+  test "it should get timestamp as string" do
+    assert Exstream.get_string_start_timestamp_for_path(@path, 18447) === "0.121"
   end
 
   test "it should get timestamp step 3" do

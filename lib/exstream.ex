@@ -51,6 +51,10 @@ defmodule Exstream do
     |> get_packets()
     |> get_closest_packet_to_bytes(bytes)
     |> get_timestamp()
+  end
+
+  def get_string_start_timestamp_for_path(path, bytes) do
+    get_start_timestamp_for_path(path, bytes)
     |> Float.to_string()
   end
 
