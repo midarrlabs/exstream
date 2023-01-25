@@ -42,27 +42,27 @@ defmodule Exstream do
     |> Jason.decode!()
   end
 
-  def get_step_for_timestamp(steps, timestamp) do
+  def get_max_step(steps, timestamp) do
     Enum.find(steps, fn x -> x > timestamp end)
   end
 
-  def get_start_timestamp_for_path(path, bytes) do
+  def get_start(path, bytes) do
     probe(path)
     |> get_packets()
     |> get_closest_packet_to_bytes(bytes)
     |> get_timestamp()
   end
 
-  def get_string_start_timestamp_for_path(path, bytes) do
-    get_start_timestamp_for_path(path, bytes)
+  def get_start_string(path, bytes) do
+    get_start(path, bytes)
     |> Float.to_string()
   end
 
-  def get_end_timestamp_for_path(path, timestamp) do
+  def get_end(path, timestamp) do
     probe(path)
     |> get_duration()
     |> get_steps()
-    |> get_step_for_timestamp(timestamp)
+    |> get_max_step(timestamp)
     |> Integer.to_string()
   end
 end

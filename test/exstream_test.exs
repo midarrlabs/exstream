@@ -17,22 +17,22 @@ defmodule ExstreamTest do
   ]
 
   test "it should get timestamp" do
-    assert Exstream.get_start_timestamp_for_path(@path, 18447) === 0.121
+    assert Exstream.get_start(@path, 18447) === 0.121
   end
 
   test "it should get timestamp as string" do
-    assert Exstream.get_string_start_timestamp_for_path(@path, 18447) === "0.121"
+    assert Exstream.get_start_string(@path, 18447) === "0.121"
   end
 
   test "it should get timestamp step 3" do
-    assert Exstream.get_end_timestamp_for_path(@path, 0.054) === "3"
+    assert Exstream.get_end(@path, 0.054) === "3"
   end
 
   test "it should get timestamp step 9" do
-    assert Exstream.get_end_timestamp_for_path(@path, 6.054) === "9"
+    assert Exstream.get_end(@path, 6.054) === "9"
   end
 
   test "it should get timestamp step 21" do
-    assert Exstream.get_end_timestamp_for_path(@path, 18.054) === "21"
+    assert Exstream.get_end(@path, 18.054) === "21"
   end
 end
