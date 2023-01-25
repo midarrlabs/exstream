@@ -25,21 +25,21 @@ defmodule ExstreamTest do
 
   test "it should have packet", context do
     assert context[:packets]
-           |> Enum.member?(Enum.at(@first_10_packets, 0))
+           |> Enum.member?(%{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"})
   end
 
   test "it should get closest packet to byte", context do
     assert context[:packets]
-           |> Exstream.get_closest_packet_to_byte(24000) === Enum.at(@first_10_packets, 4)
+           |> Exstream.get_closest_packet_to_byte(24000) === %{"flags" => "__", "pos" => "26303", "pts_time" => "0.104000"}
   end
 
   test "it should get timestamp", context do
     assert context[:packets]
            |> Enum.at(0)
-           |> Exstream.get_timestamp() === "0.054000"
+           |> Exstream.get_timestamp() === 0.054
   end
 
   test "it should get duration", context do
-    assert context[:duration] === "30.021000"
+    assert context[:duration] === 30.021
   end
 end

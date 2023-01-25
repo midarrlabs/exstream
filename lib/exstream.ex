@@ -9,11 +9,11 @@ defmodule Exstream do
   end
 
   def get_duration(%{"format" => %{"duration" => duration}}) do
-    duration
+    String.to_float(duration)
   end
 
   def get_timestamp(%{"pts_time" => timestamp}) do
-    timestamp
+    String.to_float(timestamp)
   end
 
   def get_result({ result, 0 }) do
