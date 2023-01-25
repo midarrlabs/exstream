@@ -51,6 +51,7 @@ defmodule Exstream do
     |> get_packets()
     |> get_closest_packet_to_bytes(bytes)
     |> get_timestamp()
+    |> Float.to_string()
   end
 
   def get_end_timestamp_for_path(path, timestamp) do
@@ -58,5 +59,6 @@ defmodule Exstream do
     |> get_duration()
     |> get_steps()
     |> get_step_for_timestamp(timestamp)
+    |> Integer.to_string()
   end
 end
