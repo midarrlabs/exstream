@@ -1,7 +1,15 @@
 defmodule Exstream do
 
+  def get_result({result, 0}) do
+    result
+  end
+
+  def get_result({result, ""}) do
+    result
+  end
+
   def get_closest_packet_to_byte(packets, byte) do
-    Enum.min_by(packets, fn x -> abs(String.to_integer(x["pos"]) - byte) end)
+    Enum.min_by(packets, fn x -> abs((Integer.parse(x["pos"]) |> get_result()) - byte) end)
   end
 
   def get_packets(%{"packets" => packets}) do
@@ -9,11 +17,13 @@ defmodule Exstream do
   end
 
   def get_duration(%{"format" => %{"duration" => duration}}) do
-    String.to_float(duration)
+    Float.parse(duration)
+    |> get_result()
   end
 
   def get_timestamp(%{"pts_time" => timestamp}) do
-    String.to_float(timestamp)
+    Float.parse(timestamp)
+    |> get_result()
   end
 
   def get_result({ result, 0 }) do
