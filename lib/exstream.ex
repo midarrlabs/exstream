@@ -30,6 +30,10 @@ defmodule Exstream do
     Enum.to_list(0..floor(n) // floor(n / 10))
   end
 
+  def get_step_for_timestamp(steps, timestamp) do
+    Enum.find(steps, fn x -> x > timestamp end)
+  end
+
   def probe(file) do
     System.cmd("ffprobe", [
       "-i", file,

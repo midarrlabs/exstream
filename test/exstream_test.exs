@@ -47,4 +47,22 @@ defmodule ExstreamTest do
     assert context[:duration]
            |> Exstream.get_steps() === [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
   end
+
+  test "it should get timestamp step 3", context do
+    assert context[:duration]
+           |> Exstream.get_steps()
+           |> Exstream.get_step_for_timestamp(0.054) === 3
+  end
+
+  test "it should get timestamp step 9", context do
+    assert context[:duration]
+           |> Exstream.get_steps()
+           |> Exstream.get_step_for_timestamp(6.054) === 9
+  end
+
+  test "it should get timestamp step 21", context do
+    assert context[:duration]
+           |> Exstream.get_steps()
+           |> Exstream.get_step_for_timestamp(18.054) === 21
+  end
 end
