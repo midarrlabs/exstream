@@ -8,7 +8,7 @@ defmodule Exstream do
     result
   end
 
-  def get_closest_packet_to_byte(packets, byte) do
+  def get_closest_packet_to_bytes(packets, byte) do
     Enum.min_by(packets, fn x -> abs((Integer.parse(x["pos"]) |> get_result()) - byte) end)
   end
 
@@ -30,10 +30,6 @@ defmodule Exstream do
     Enum.to_list(0..floor(n) // floor(n / 10))
   end
 
-  def get_step_for_timestamp(steps, timestamp) do
-    Enum.find(steps, fn x -> x > timestamp end)
-  end
-
   def probe(file) do
     System.cmd("ffprobe", [
       "-i", file,
@@ -44,5 +40,16 @@ defmodule Exstream do
     ])
     |> get_result()
     |> Jason.decode!()
+  end
+
+  def get_start_timestamp_for_path(path, bytes) do
+    probe(path)
+    |> get_packets()
+    |> get_closest_packet_to_bytes(bytes)
+    |> get_timestamp()
+  end
+
+  def get_step_for_timestamp(steps, timestamp) do
+    Enum.find(steps, fn x -> x > timestamp end)
   end
 end

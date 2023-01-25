@@ -23,20 +23,8 @@ defmodule ExstreamTest do
     ]
   end
 
-  test "it should have packet", context do
-    assert context[:packets]
-           |> Enum.member?(%{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"})
-  end
-
-  test "it should get closest packet to byte", context do
-    assert context[:packets]
-           |> Exstream.get_closest_packet_to_byte(24000) === %{"flags" => "__", "pos" => "26303", "pts_time" => "0.104000"}
-  end
-
-  test "it should get timestamp", context do
-    assert context[:packets]
-           |> Enum.at(0)
-           |> Exstream.get_timestamp() === 0.054
+  test "it should get timestamp" do
+    assert Exstream.get_start_timestamp_for_path(@sample, 18447) === 0.121
   end
 
   test "it should get duration", context do
