@@ -26,8 +26,8 @@ defmodule Exstream do
     |> get_result()
   end
 
-  def get_result({ result, 0 }) do
-    result
+  def get_one_tenth(n) do
+    n / 10
   end
 
   def probe(file) do

@@ -42,4 +42,9 @@ defmodule ExstreamTest do
   test "it should get duration", context do
     assert context[:duration] === 30.021
   end
+  
+  test "it should get 1/10 duration", context do
+    assert context[:duration]
+           |> Exstream.get_one_tenth() === 3.0021
+  end
 end
