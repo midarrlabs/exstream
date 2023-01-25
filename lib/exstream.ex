@@ -30,9 +30,9 @@ defmodule Exstream do
     Enum.to_list(0..floor(n) // floor(n / 10))
   end
 
-  def probe(file) do
+  def probe(path) do
     System.cmd("ffprobe", [
-      "-i", file,
+      "-i", path,
       "-show_entries", "format=duration:packet=pos,pts_time,flags",
       "-select_streams", "v",
       "-of", "json",
@@ -42,6 +42,10 @@ defmodule Exstream do
     |> Jason.decode!()
   end
 
+  def get_step_for_timestamp(steps, timestamp) do
+    Enum.find(steps, fn x -> x > timestamp end)
+  end
+
   def get_start_timestamp_for_path(path, bytes) do
     probe(path)
     |> get_packets()
@@ -49,7 +53,10 @@ defmodule Exstream do
     |> get_timestamp()
   end
 
-  def get_step_for_timestamp(steps, timestamp) do
-    Enum.find(steps, fn x -> x > timestamp end)
+  def get_end_timestamp_for_path(path, timestamp) do
+    probe(path)
+    |> get_duration()
+    |> get_steps()
+    |> get_step_for_timestamp(timestamp)
   end
 end
