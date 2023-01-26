@@ -65,8 +65,8 @@ defmodule Exstream do
     for _ <- 1..10, into: "", do: <<Enum.random('0123456789abcdef')>>
   end
 
-  @spec chunk_video(String.t, number, String.t) :: String.t
-  def chunk_video(path, bytes, chunk_id) do
+  @spec chunk(String.t, number, String.t) :: String.t
+  def chunk(path, bytes, chunk_id) do
     System.cmd("ffmpeg", [
       "-loglevel", "error",
       "-ss", "#{ get_start(path, bytes) }",
