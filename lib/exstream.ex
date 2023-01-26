@@ -53,16 +53,27 @@ defmodule Exstream do
     |> get_timestamp()
   end
 
-  def get_start_string(path, bytes) do
-    get_start(path, bytes)
-    |> Float.to_string()
-  end
-
   def get_end(path, timestamp) do
     probe(path)
     |> get_duration()
     |> get_steps()
     |> get_max_step(timestamp)
-    |> Integer.to_string()
+  end
+  
+  def random_string() do
+    for _ <- 1..10, into: "", do: <<Enum.random('0123456789abcdef')>>
+  end
+
+  @spec chunk_video(String.t, number, String.t) :: String.t
+  def chunk_video(path, bytes, chunk_id) do
+    System.cmd("ffmpeg", [
+      "-ss", "#{ get_start(path, bytes) }",
+      "-i", path,
+      "-to", "#{ get_end(path, get_start(path, bytes)) }",
+      "-c", "copy",
+      "#{ chunk_id }.mp4"
+    ])
+
+    "#{ chunk_id }.mp4"
   end
 end

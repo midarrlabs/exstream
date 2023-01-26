@@ -20,19 +20,22 @@ defmodule ExstreamTest do
     assert Exstream.get_start(@path, 18447) === 0.121
   end
 
-  test "it should get start string" do
-    assert Exstream.get_start_string(@path, 18447) === "0.121"
-  end
-
   test "it should get end 3" do
-    assert Exstream.get_end(@path, 0.054) === "3"
+    assert Exstream.get_end(@path, 0.054) === 3
   end
 
   test "it should get end 9" do
-    assert Exstream.get_end(@path, 6.054) === "9"
+    assert Exstream.get_end(@path, 6.054) === 9
   end
 
   test "it should get end 21" do
-    assert Exstream.get_end(@path, 18.054) === "21"
+    assert Exstream.get_end(@path, 18.054) === 21
+  end
+
+  test "it should return video chunk name" do
+
+    some_random_string = Exstream.random_string()
+
+    assert Exstream.chunk_video(@path, 2818447, some_random_string) === "#{ some_random_string }.mp4"
   end
 end
