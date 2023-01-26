@@ -1,28 +1,17 @@
 defmodule Exstream.SendVideo do
   import Plug.Conn
 
-  def get_file_size(path) do
-    {:ok, %{size: size}} = File.stat(path)
-
-    size
-  end
-
-  def handle_range({"range", "bytes=0-1"}, conn, path) do
-    file_size = get_file_size(path)
-
+  def handle_range({"range", "bytes=0-1"}, conn, path, file_size) do
     conn
     |> put_resp_header("content-type", "video/mp4")
     |> put_resp_header("content-range", "bytes 0-1/#{file_size}")
     |> send_file(206, path, 0, 2)
   end
 
-  def handle_range({"range", "bytes=" <> start_pos}, conn, path) do
-    file_size = get_file_size(path)
-
-    offset =
-      String.split(start_pos, "-")
-      |> hd
-      |> String.to_integer()
+  def handle_range({"range", "bytes=" <> start_pos}, conn, path, file_size) do
+    offset = String.split(start_pos, "-")
+             |> List.first()
+             |> String.to_integer()
 
     conn
     |> put_resp_header("content-type", "video/mp4")
@@ -30,23 +19,17 @@ defmodule Exstream.SendVideo do
     |> send_file(206, path, offset, file_size - offset)
   end
 
-  def handle_range(nil, conn, path) do
-    file_size = get_file_size(path)
-
+  def handle_range(nil, conn, path, file_size) do
     conn
     |> put_resp_header("content-type", "video/mp4")
     |> put_resp_header("content-range", "bytes 0-#{file_size - 1}/#{file_size}")
-    |> send_file(206, path, 0, file_size - 0)
+    |> send_file(206, path, 0, file_size)
   end
 
-  def send_video(conn, headers, path) do
-    List.keyfind(headers, "range", 0)
-    |> handle_range(conn, path)
-  end
+  def send_video(conn, path) do
+    {:ok, %{size: file_size}} = File.stat(path)
 
-  def init(default), do: default
-
-  def call(%Plug.Conn{req_headers: headers} = conn, path) do
-    send_video(conn, headers, path)
+    List.keyfind(conn.req_headers, "range", 0)
+    |> handle_range(conn, path, file_size)
   end
 end

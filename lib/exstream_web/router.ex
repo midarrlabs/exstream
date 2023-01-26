@@ -11,9 +11,7 @@ defmodule Exstream.Router do
   end
 
   get "/video" do
-    %Plug.Conn{req_headers: headers} = conn
-
-    Exstream.SendVideo.send_video(conn, headers, Path.absname("support/sample_1080_libx264_aac_30s_video.mkv"))
+    Exstream.SendVideo.send_video(conn, Path.absname("support/sample_1080_libx264_aac_30s_video.mkv"))
   end
 
   match _ do

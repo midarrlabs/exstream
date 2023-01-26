@@ -7,7 +7,7 @@ defmodule SendVideoTest do
   test "it should start" do
 
     conn = conn(:get, "/")
-           |> Exstream.SendVideo.call(Exstream.SendVideo.init(@path))
+           |> Exstream.SendVideo.send_video(@path)
 
     assert conn.status === 206
     assert conn.state === :file
@@ -19,7 +19,7 @@ defmodule SendVideoTest do
 
     conn = conn(:get, "/")
            |> put_req_header("range", "bytes=124-")
-           |> Exstream.SendVideo.call(Exstream.SendVideo.init(@path))
+           |> Exstream.SendVideo.send_video(@path)
 
     assert conn.status === 206
     assert conn.state === :file
@@ -31,7 +31,7 @@ defmodule SendVideoTest do
 
     conn = conn(:get, "/")
            |> put_req_header("range", "bytes=0-1")
-           |> Exstream.SendVideo.call(Exstream.SendVideo.init(@path))
+           |> Exstream.SendVideo.send_video(@path)
 
     assert conn.status === 206
     assert conn.state === :file
