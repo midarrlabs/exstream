@@ -102,9 +102,7 @@ defmodule Exstream do
   end
 
   def video(conn, path) do
-    {:ok, %{size: file_size}} = File.stat(path)
-
     List.keyfind(conn.req_headers, "range", 0)
-    |> handle_range(conn |> put_resp_header("content-type", "video/mp4"), path, file_size)
+    |> handle_range(conn |> put_resp_header("content-type", "video/mp4"), path, File.stat!(path).size)
   end
 end
