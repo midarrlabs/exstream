@@ -37,5 +37,7 @@ defmodule ExstreamTest do
     some_random_string = Exstream.random_string()
 
     assert Exstream.chunk_video(@path, 2818447, some_random_string) === "#{ some_random_string }.mp4"
+
+    File.rm("#{ some_random_string }.mp4")
   end
 end
