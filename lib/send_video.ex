@@ -3,7 +3,6 @@ defmodule Exstream.SendVideo do
 
   def handle_range({"range", "bytes=0-1"}, conn, path, file_size) do
     conn
-    |> put_resp_header("content-type", "video/mp4")
     |> put_resp_header("content-range", "bytes 0-1/#{file_size}")
     |> send_file(206, path, 0, 2)
   end
@@ -14,14 +13,12 @@ defmodule Exstream.SendVideo do
              |> String.to_integer()
 
     conn
-    |> put_resp_header("content-type", "video/mp4")
     |> put_resp_header("content-range", "bytes #{offset}-#{file_size - 1}/#{file_size}")
     |> send_file(206, path, offset, file_size - offset)
   end
 
   def handle_range(nil, conn, path, file_size) do
     conn
-    |> put_resp_header("content-type", "video/mp4")
     |> put_resp_header("content-range", "bytes 0-#{file_size - 1}/#{file_size}")
     |> send_file(206, path, 0, file_size)
   end
@@ -30,6 +27,6 @@ defmodule Exstream.SendVideo do
     {:ok, %{size: file_size}} = File.stat(path)
 
     List.keyfind(conn.req_headers, "range", 0)
-    |> handle_range(conn, path, file_size)
+    |> handle_range(conn |> put_resp_header("content-type", "video/mp4"), path, file_size)
   end
 end
