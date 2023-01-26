@@ -2,12 +2,12 @@ defmodule SendVideoTest do
   use ExUnit.Case
   use Plug.Test
 
-  @sample "test/fixtures/sample_1080_libx264_aac_30s_video.mkv"
+  @path "support/sample_1080_libx264_aac_30s_video.mkv"
 
   test "it should start" do
 
     conn = conn(:get, "/")
-           |> Exstream.SendVideo.call(Exstream.SendVideo.init(@sample))
+           |> Exstream.SendVideo.call(Exstream.SendVideo.init(@path))
 
     assert conn.status === 206
     assert conn.state === :file
@@ -19,7 +19,7 @@ defmodule SendVideoTest do
 
     conn = conn(:get, "/")
            |> put_req_header("range", "bytes=124-")
-           |> Exstream.SendVideo.call(Exstream.SendVideo.init(@sample))
+           |> Exstream.SendVideo.call(Exstream.SendVideo.init(@path))
 
     assert conn.status === 206
     assert conn.state === :file
@@ -31,7 +31,7 @@ defmodule SendVideoTest do
 
     conn = conn(:get, "/")
            |> put_req_header("range", "bytes=0-1")
-           |> Exstream.SendVideo.call(Exstream.SendVideo.init(@sample))
+           |> Exstream.SendVideo.call(Exstream.SendVideo.init(@path))
 
     assert conn.status === 206
     assert conn.state === :file
