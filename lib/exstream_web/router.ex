@@ -1,13 +1,15 @@
 Mix.install([:plug, :plug_cowboy])
 
-defmodule Exstream.Playground do
+defmodule Exstream.Router do
   use Plug.Router
 
   plug :match
   plug :dispatch
 
   get "/" do
-    send_resp(conn, 200, "Welcome")
+    conn
+    |> put_resp_content_type("text/html")
+    |> send_file(200, Path.absname("lib/exstream_web/index.html"))
   end
 
   match _ do
@@ -16,5 +18,5 @@ defmodule Exstream.Playground do
 end
 
 require Logger
-{:ok, _} = Plug.Cowboy.http(Exstream.Playground, [])
+{:ok, _} = Plug.Cowboy.http(Exstream.Router, [])
 Logger.info("Plug now running on localhost:4000")
