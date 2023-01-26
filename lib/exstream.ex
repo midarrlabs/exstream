@@ -67,6 +67,7 @@ defmodule Exstream do
   @spec chunk_video(String.t, number, String.t) :: String.t
   def chunk_video(path, bytes, chunk_id) do
     System.cmd("ffmpeg", [
+      "-loglevel", "error",
       "-ss", "#{ get_start(path, bytes) }",
       "-i", path,
       "-to", "#{ get_end(path, get_start(path, bytes)) }",
