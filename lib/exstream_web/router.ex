@@ -1,5 +1,3 @@
-Mix.install([:plug, :plug_cowboy])
-
 defmodule Exstream.Router do
   use Plug.Router
 
@@ -18,5 +16,4 @@ defmodule Exstream.Router do
 end
 
 require Logger
-{:ok, _} = Plug.Cowboy.http(Exstream.Router, [])
-Logger.info("Plug now running on localhost:4000")
+Logger.info("Plug now running on localhost:4040")
