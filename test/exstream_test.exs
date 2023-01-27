@@ -42,6 +42,15 @@ defmodule ExstreamTest do
     File.rm("#{ some_random_string }.mp4")
   end
 
+  test "it should copy" do
+
+    some_random_string = Exstream.random_string()
+
+    assert Exstream.video_copy(@path, some_random_string) === "#{ some_random_string }.mp4"
+
+    File.rm("#{ some_random_string }.mp4")
+  end
+
   test "it should start" do
 
     conn = conn(:get, "/")

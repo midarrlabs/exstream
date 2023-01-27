@@ -79,6 +79,18 @@ defmodule Exstream do
     "#{ chunk_id }.mp4"
   end
 
+  @spec video_copy(String.t, String.t) :: String.t
+  def video_copy(path, id) do
+    System.cmd("ffmpeg", [
+      "-loglevel", "error",
+      "-i", path,
+      "-c", "copy",
+      "#{ id }.mp4"
+    ])
+
+    "#{ id }.mp4"
+  end
+
   def handle_range({"range", "bytes=0-1"}, conn, path, file_size) do
     conn
     |> put_resp_header("content-range", "bytes 0-1/#{file_size}")
