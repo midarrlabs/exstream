@@ -1,30 +1,6 @@
 defmodule Exstream do
   import Plug.Conn
 
-  def get_result({result, 0}) do
-    result
-  end
-
-  def get_result({result, ""}) do
-    result
-  end
-
-  def probe(path) do
-    System.cmd("ffprobe", [
-      "-i", path,
-      "-show_entries", "format=duration:packet=pos,pts_time,flags",
-      "-select_streams", "v",
-      "-of", "json",
-      "-v", "0"
-    ])
-    |> get_result()
-    |> Jason.decode!()
-  end
-  
-  def random_string() do
-    for _ <- 1..10, into: "", do: <<Enum.random('0123456789abcdef')>>
-  end
-
   def handle_range({"range", "bytes=" <> positions}, conn, path) do
     start = String.split(positions, "-")
              |> List.first()
