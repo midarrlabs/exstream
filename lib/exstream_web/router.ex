@@ -11,7 +11,11 @@ defmodule Exstream.Router do
   end
 
   get "/video" do
-    Exstream.SendVideo.send_video(conn, Path.absname("support/sample_1080_libx264_aac_30s_video.mkv"))
+    Exstream.get_manifest(conn, Path.absname("support/out.m3u8"))
+  end
+
+  get "/out.ts" do
+    Exstream.get_video(conn, Path.absname("support/out.ts"))
   end
 
   match _ do

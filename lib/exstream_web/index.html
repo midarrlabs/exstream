@@ -2,12 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Playground</title>
+    <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
 </head>
 <body>
-    <video src="/video" width="620" controls></video>
+    <video id="hls-video" width="620">
+        <source src="/video" type="application/x-mpegURL">
+    </video>
+
+    <script>
+        const player = fluidPlayer('hls-video')
+
+        player.skipTo(15)
+    </script>
 </body>
 </html>
