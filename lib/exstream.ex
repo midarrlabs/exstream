@@ -1,29 +1,30 @@
 defmodule Exstream do
   import Plug.Conn
 
-  def handle_range({"range", "bytes=" <> positions}, conn, path) do
-    start = String.split(positions, "-")
+  def handle_range({"range", "bytes=0-1"}, conn, path, file_size) do
+    conn
+    |> put_resp_header("content-range", "bytes 0-1/#{file_size}")
+    |> send_file(206, path, 0, 2)
+  end
+
+  def handle_range({"range", "bytes=" <> start_pos}, conn, path, file_size) do
+    offset = String.split(start_pos, "-")
              |> List.first()
              |> String.to_integer()
 
-    finish = String.split(positions, "-")
-             |> List.last()
-             |> String.to_integer()
-
     conn
-    |> put_resp_header("content-type", "video/mp2t")
-    |> put_resp_header("content-range", "bytes #{start}-#{finish - 1}/#{finish}")
-    |> send_file(206, path, start, finish - start)
+    |> put_resp_header("content-range", "bytes #{offset}-#{file_size - 1}/#{file_size}")
+    |> send_file(206, path, offset, file_size - offset)
   end
 
-  def get_video(conn, path) do
+  def handle_range(nil, conn, path, file_size) do
+    conn
+    |> put_resp_header("content-range", "bytes 0-#{file_size - 1}/#{file_size}")
+    |> send_file(206, path, 0, file_size)
+  end
+
+  def video(conn, path) do
     List.keyfind(conn.req_headers, "range", 0)
-    |> handle_range(conn, path)
-  end
-
-  def get_manifest(conn, path) do
-    conn
-    |> put_resp_header("content-type", "vnd.apple.mpegURL")
-    |> send_file(200, path)
+    |> handle_range(conn |> put_resp_header("content-type", "video/mp4"), path, File.stat!(path).size)
   end
 end
