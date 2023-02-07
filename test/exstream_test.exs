@@ -4,7 +4,7 @@ defmodule ExstreamTest do
 
   @path "support/sample_1080_libx264_aac_30s_video.mkv"
 
-  test "it should start" do
+  test "it should handle without headers" do
 
     conn = conn(:get, "/")
            |> Exstream.video(@path)
@@ -15,19 +15,31 @@ defmodule ExstreamTest do
     assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-16351753/16351754"})
   end
 
-  test "it should seek" do
+  test "it should handle default browser request" do
 
     conn = conn(:get, "/")
-           |> put_req_header("range", "bytes=124-")
+           |> put_req_header("range", "bytes=0-")
            |> Exstream.video(@path)
 
     assert conn.status === 206
     assert conn.state === :file
     assert Enum.member?(conn.resp_headers, {"content-type", "video/mp4"})
-    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 124-16351753/16351754"})
+    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-16351753/16351754"})
   end
 
-  test "it should Safari probe" do
+  test "it should handle seek" do
+
+    conn = conn(:get, "/")
+           |> put_req_header("range", "bytes=12345-")
+           |> Exstream.video(@path)
+
+    assert conn.status === 206
+    assert conn.state === :file
+    assert Enum.member?(conn.resp_headers, {"content-type", "video/mp4"})
+    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 12345-16351753/16351754"})
+  end
+
+  test "it should handle Safari probe" do
 
     conn = conn(:get, "/")
            |> put_req_header("range", "bytes=0-1")
