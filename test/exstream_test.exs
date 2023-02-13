@@ -50,4 +50,9 @@ defmodule ExstreamTest do
     assert Enum.member?(conn.resp_headers, {"content-type", "video/mp4"})
     assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-1/16351754"})
   end
+
+  test "it should have packet" do
+    assert Exstream.probe(@path)
+           |> Enum.at(0) === %{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"}
+  end
 end

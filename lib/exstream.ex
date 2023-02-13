@@ -27,4 +27,21 @@ defmodule Exstream do
     List.keyfind(conn.req_headers, "range", 0)
     |> handle_range(conn |> put_resp_header("content-type", "video/mp4"), path, File.stat!(path).size)
   end
+
+  def get_packets({ result, 0 }) do
+    result
+    |> Jason.decode!()
+    |> Map.get("packets")
+  end
+
+  def probe(file) do
+    System.cmd("ffprobe", [
+      "-i", file,
+      "-show_entries", "packet=pos,pts_time,flags",
+      "-select_streams", "v",
+      "-of", "json",
+      "-v", "0"
+    ])
+    |> get_packets()
+  end
 end
