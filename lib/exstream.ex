@@ -8,9 +8,10 @@ defmodule Exstream do
   end
 
   def handle_range({"range", "bytes=" <> start_pos}, conn, path, file_size) do
-    offset = String.split(start_pos, "-")
-             |> List.first()
-             |> String.to_integer()
+    offset =
+      String.split(start_pos, "-")
+      |> List.first()
+      |> String.to_integer()
 
     conn
     |> put_resp_header("content-range", "bytes #{offset}-#{file_size - 1}/#{file_size}")
@@ -32,7 +33,7 @@ defmodule Exstream do
     Enum.min_by(packets, fn x -> abs(String.to_integer(x["pos"]) - byte) end)
   end
 
-  def get_packets({ result, 0 }) do
+  def get_packets({result, 0}) do
     result
     |> Jason.decode!()
     |> Map.get("packets")

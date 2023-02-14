@@ -1,8 +1,8 @@
 defmodule Exstream.Router do
   use Plug.Router
 
-  plug :match
-  plug :dispatch
+  plug(:match)
+  plug(:dispatch)
 
   get "/" do
     conn
