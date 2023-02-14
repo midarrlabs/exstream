@@ -101,6 +101,6 @@ defmodule ExstreamTest do
   test "it should get closest keyframe packet to byte" do
     assert Exstream.probe(@path)
            |> Exstream.get_keyframe_packets()
-           |> Exstream.get_closest_keyframe_packet_to_byte(6400000) === Enum.at(@keyframes, 3)
+           |> Exstream.get_closest_packet_to_byte(6400000) === Enum.at(@keyframes, 3)
   end
 end
