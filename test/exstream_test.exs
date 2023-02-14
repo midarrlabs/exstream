@@ -65,17 +65,20 @@ defmodule ExstreamTest do
   ]
 
   test "it should have packet" do
-    assert Exstream.probe_for_packets(@path)
+    assert Exstream.probe(@path)
+           |> Exstream.get_packets()
            |> Enum.at(0) === %{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"}
   end
 
   test "it should get packet" do
-    assert Exstream.probe_for_packets(@path)
+    assert Exstream.probe(@path)
+           |> Exstream.get_packets()
            |> Enum.at(0) === Enum.at(@first_10_packets, 0)
   end
 
   test "it should get closest packet to byte" do
-    assert Exstream.probe_for_packets(@path)
+    assert Exstream.probe(@path)
+           |> Exstream.get_packets()
            |> Exstream.get_closest_packet_to_byte(24000) === Enum.at(@first_10_packets, 4)
   end
 
@@ -91,7 +94,13 @@ defmodule ExstreamTest do
   ]
 
   test "it should get keyframes" do
-    assert Exstream.probe_for_packets(@path)
-           |> Enum.filter(fn x -> x["flags"] === "K_" end) === @keyframes
+    assert Exstream.probe(@path)
+           |> Exstream.get_keyframe_packets() === @keyframes
+  end
+
+  test "it should get closest keyframe packet to byte" do
+    assert Exstream.probe(@path)
+           |> Exstream.get_keyframe_packets()
+           |> Exstream.get_closest_keyframe_packet_to_byte(6400000) === Enum.at(@keyframes, 3)
   end
 end

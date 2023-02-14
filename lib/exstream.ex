@@ -33,13 +33,24 @@ defmodule Exstream do
     Enum.min_by(packets, fn x -> abs(String.to_integer(x["pos"]) - byte) end)
   end
 
+  def get_closest_keyframe_packet_to_byte(packets, byte) do
+    Enum.min_by(packets, fn x -> abs(String.to_integer(x["pos"]) - byte) end)
+  end
+
   def get_packets({result, 0}) do
     result
     |> Jason.decode!()
     |> Map.get("packets")
   end
 
-  def probe_for_packets(file) do
+  def get_keyframe_packets({result, 0}) do
+    result
+    |> Jason.decode!()
+    |> Map.get("packets")
+    |> Enum.filter(fn x -> x["flags"] === "K_" end)
+  end
+
+  def probe(file) do
     System.cmd("ffprobe", [
       "-i", file,
       "-show_entries", "packet=pos,pts_time,flags",
@@ -47,6 +58,5 @@ defmodule Exstream do
       "-of", "json",
       "-v", "0"
     ])
-    |> get_packets()
   end
 end
