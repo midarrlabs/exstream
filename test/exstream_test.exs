@@ -78,4 +78,20 @@ defmodule ExstreamTest do
     assert Exstream.probe_for_packets(@path)
            |> Exstream.get_closest_packet_to_byte(24000) === Enum.at(@first_10_packets, 4)
   end
+
+  @keyframes [
+    %{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"},
+    %{"flags" => "K_", "pos" => "421485", "pts_time" => "4.204000"},
+    %{"flags" => "K_", "pos" => "2206473", "pts_time" => "8.371000"},
+    %{"flags" => "K_", "pos" => "5582774", "pts_time" => "12.538000"},
+    %{"flags" => "K_", "pos" => "8561437", "pts_time" => "16.288000"},
+    %{"flags" => "K_", "pos" => "12035419", "pts_time" => "20.154000"},
+    %{"flags" => "K_", "pos" => "13203345", "pts_time" => "24.321000"},
+    %{"flags" => "K_", "pos" => "14076737", "pts_time" => "27.454000"}
+  ]
+
+  test "it should get keyframes" do
+    assert Exstream.probe_for_packets(@path)
+           |> Enum.filter(fn x -> x["flags"] === "K_" end) === @keyframes
+  end
 end
