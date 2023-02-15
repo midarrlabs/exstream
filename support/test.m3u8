@@ -4,7 +4,7 @@
 #EXT-X-VERSION:4
 #EXT-X-MEDIA-SEQUENCE:0
 #EXTINF:08.0,
-/start
+http://localhost:4040/start
 #EXTINF:10.0,
-/end
+http://localhost:4040/end
 #EXT-X-ENDLIST
