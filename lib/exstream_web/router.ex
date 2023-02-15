@@ -10,10 +10,6 @@ defmodule Exstream.Router do
     |> send_file(200, Path.absname("lib/exstream_web/index.html"))
   end
 
-  get "/video" do
-    Exstream.some_test(conn)
-  end
-
   get "/playlist" do
     conn
     |> send_file(200, Path.absname("support/playlist.m3u8"))
