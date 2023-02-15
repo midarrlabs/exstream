@@ -4,6 +4,12 @@ defmodule ExstreamTest do
 
   @path "support/sample_1080_libx264_aac_30s_video.mkv"
 
+  setup do
+    [
+      packets: Exstream.probe(@path) |> Exstream.get_packets()
+    ]
+  end
+
   test "it should range without headers" do
     conn =
       conn(:get, "/")
@@ -64,21 +70,18 @@ defmodule ExstreamTest do
     %{"flags" => "__", "pos" => "46588", "pts_time" => "0.221000"}
   ]
 
-  test "it should have packet" do
-    assert Exstream.probe(@path)
-           |> Exstream.get_packets()
+  test "it should have packet", context do
+    assert context[:packets]
            |> Enum.at(0) === %{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"}
   end
 
-  test "it should get packet" do
-    assert Exstream.probe(@path)
-           |> Exstream.get_packets()
+  test "it should get packet", context do
+    assert context[:packets]
            |> Enum.at(0) === Enum.at(@first_10_packets, 0)
   end
 
-  test "it should get closest packet to byte" do
-    assert Exstream.probe(@path)
-           |> Exstream.get_packets()
+  test "it should get closest packet to byte", context do
+    assert context[:packets]
            |> Exstream.get_closest_packet_to_byte(24000) === Enum.at(@first_10_packets, 4)
   end
 
