@@ -6,7 +6,8 @@ defmodule ExstreamTest do
 
   setup do
     [
-      packets: Exstream.probe(@path) |> Exstream.get_packets()
+      packets: Exstream.probe(@path) |> Exstream.get_packets(),
+      keyframe_packets: Exstream.probe(@path) |> Exstream.get_keyframe_packets()
     ]
   end
 
@@ -96,14 +97,12 @@ defmodule ExstreamTest do
     %{"flags" => "K_", "pos" => "14076737", "pts_time" => "27.454000"}
   ]
 
-  test "it should get keyframes" do
-    assert Exstream.probe(@path)
-           |> Exstream.get_keyframe_packets() === @keyframes
+  test "it should get keyframes", context do
+    assert context[:keyframe_packets] === @keyframes
   end
 
-  test "it should get closest keyframe packet to byte" do
-    assert Exstream.probe(@path)
-           |> Exstream.get_keyframe_packets()
+  test "it should get closest keyframe packet to byte", context do
+    assert context[:keyframe_packets]
            |> Exstream.get_closest_packet_to_byte(6400000) === Enum.at(@keyframes, 3)
   end
 end
