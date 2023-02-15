@@ -37,13 +37,13 @@ defmodule Exstream do
     packets
   end
 
-  def get_duration(%{"format" => %{"duration" => duration}}) do
-    duration
-  end
-
   def get_keyframe_packets(%{"packets" => packets}) do
     packets
     |> Enum.filter(fn x -> x["flags"] === "K_" end)
+  end
+
+  def get_duration(%{"format" => %{"duration" => duration}}) do
+    duration
   end
 
   def get_result({ result, 0 }) do
