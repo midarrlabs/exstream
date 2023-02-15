@@ -46,7 +46,7 @@ defmodule Exstream do
     duration
   end
 
-  def get_result({ result, 0 }) do
+  def get_result({result, 0}) do
     result
   end
 
