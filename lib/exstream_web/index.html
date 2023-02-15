@@ -1,12 +1,27 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Playground</title>
-</head>
-<body>
-    <video src="/video" width="620" controls></video>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Playground</title>
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+    </head>
+    <body>
+        <video id="video" width="640" controls></video>
+        <script>
+            const video = document.getElementById('video')
+            const videoSrc = '/playlist'
+            if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = videoSrc
+                //
+                // If no native HLS support, check if HLS.js is supported
+                //
+            } else if (Hls.isSupported()) {
+                const hls = new Hls()
+                hls.loadSource(videoSrc)
+                hls.attachMedia(video)
+            }
+    </script>
+    </body>
 </html>
