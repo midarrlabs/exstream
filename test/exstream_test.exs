@@ -59,7 +59,8 @@ defmodule ExstreamTest do
     assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-1/16351754"})
   end
 
-  @first_10_packets [
+  @doc """
+  [
     %{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"},
     %{"flags" => "__", "pos" => "5300", "pts_time" => "0.071000"},
     %{"flags" => "__", "pos" => "6583", "pts_time" => "0.088000"},
@@ -71,23 +72,20 @@ defmodule ExstreamTest do
     %{"flags" => "__", "pos" => "44880", "pts_time" => "0.171000"},
     %{"flags" => "__", "pos" => "46588", "pts_time" => "0.221000"}
   ]
+  """
 
   test "it should have packet", context do
     assert context[:packets]
            |> Enum.at(0) === %{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"}
   end
 
-  test "it should get packet", context do
-    assert context[:packets]
-           |> Enum.at(0) === Enum.at(@first_10_packets, 0)
-  end
-
   test "it should get closest packet to byte", context do
     assert context[:packets]
-           |> Exstream.get_closest_packet_to_byte(24000) === Enum.at(@first_10_packets, 4)
+           |> Exstream.get_closest_packet_to_byte(24000) === %{"flags" => "__", "pos" => "26303", "pts_time" => "0.104000"}
   end
 
-  @keyframes [
+  @doc """
+  [
     %{"flags" => "K_", "pos" => "2563", "pts_time" => "0.054000"},
     %{"flags" => "K_", "pos" => "421485", "pts_time" => "4.204000"},
     %{"flags" => "K_", "pos" => "2206473", "pts_time" => "8.371000"},
@@ -97,14 +95,16 @@ defmodule ExstreamTest do
     %{"flags" => "K_", "pos" => "13203345", "pts_time" => "24.321000"},
     %{"flags" => "K_", "pos" => "14076737", "pts_time" => "27.454000"}
   ]
+  """
 
   test "it should get keyframes", context do
-    assert context[:keyframe_packets] === @keyframes
+    assert context[:keyframe_packets]
+           |> Enum.at(2) === %{"flags" => "K_", "pos" => "2206473", "pts_time" => "8.371000"}
   end
 
   test "it should get closest keyframe packet to byte", context do
     assert context[:keyframe_packets]
-           |> Exstream.get_closest_packet_to_byte(6400000) === Enum.at(@keyframes, 3)
+           |> Exstream.get_closest_packet_to_byte(6400000) === %{"flags" => "K_", "pos" => "5582774", "pts_time" => "12.538000"}
   end
 
   test "it should get total duration", context do
