@@ -1,4 +1,4 @@
-defmodule ExstreamPlaylist do
+defmodule Exstream.Playlist do
 
   def get_header() do
     "#EXTM3U\n"
