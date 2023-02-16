@@ -16,4 +16,8 @@ defmodule ExstreamPlaylistTest do
   test "it should get version" do
     assert ExstreamPlaylist.get_version === "#EXT-X-VERSION:4\n"
   end
+
+  test "it should get media sequence" do
+    assert ExstreamPlaylist.get_media_sequence === "#EXT-X-MEDIA-SEQUENCE:0\n"
+  end
 end
