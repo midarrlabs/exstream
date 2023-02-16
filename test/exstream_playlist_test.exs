@@ -1,7 +1,7 @@
 defmodule ExstreamPlaylistTest do
   use ExUnit.Case
   
-  test "it should have file header" do
-    assert ExstreamPlaylist.header() === "#EXTM3U\n"
+  test "it should get header" do
+    assert ExstreamPlaylist.get_header() === "#EXTM3U\n"
   end
 end
