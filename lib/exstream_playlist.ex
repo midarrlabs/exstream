@@ -11,4 +11,8 @@ defmodule ExstreamPlaylist do
   def get_target_duration() do
     "#EXT-X-TARGETDURATION:16\n"
   end
+
+  def get_version() do
+    "#EXT-X-VERSION:4\n"
+  end
 end

@@ -12,4 +12,8 @@ defmodule ExstreamPlaylistTest do
   test "it should get target duration" do
     assert ExstreamPlaylist.get_target_duration === "#EXT-X-TARGETDURATION:16\n"
   end
+  
+  test "it should get version" do
+    assert ExstreamPlaylist.get_version === "#EXT-X-VERSION:4\n"
+  end
 end
