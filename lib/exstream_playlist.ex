@@ -27,4 +27,8 @@ defmodule Exstream.Playlist do
   def get_another_track_information() do
     "#EXTINF:08.0,\n/end\n"
   end
+
+  def get_end_list() do
+    "#EXT-X-ENDLIST"
+  end
 end
