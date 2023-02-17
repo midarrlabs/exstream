@@ -20,4 +20,8 @@ defmodule ExstreamPlaylistTest do
   test "it should get media sequence" do
     assert Exstream.Playlist.get_media_sequence === "#EXT-X-MEDIA-SEQUENCE:0\n"
   end
+  
+  test "it should track information" do
+    assert Exstream.Playlist.get_track_information === "#EXTINF:08.0,\n/start\n"
+  end
 end

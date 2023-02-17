@@ -19,4 +19,8 @@ defmodule Exstream.Playlist do
   def get_media_sequence() do
     "#EXT-X-MEDIA-SEQUENCE:0\n"
   end
+
+  def get_track_information() do
+    "#EXTINF:08.0,\n/start\n"
+  end
 end
