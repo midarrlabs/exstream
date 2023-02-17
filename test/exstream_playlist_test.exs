@@ -10,7 +10,7 @@ defmodule ExstreamPlaylistTest do
   end
   
   test "it should get target duration" do
-    assert Exstream.Playlist.get_target_duration === "#EXT-X-TARGETDURATION:16\n"
+    assert Exstream.Playlist.get_target_duration(30) === "#EXT-X-TARGETDURATION:30\n"
   end
   
   test "it should get version" do
@@ -34,6 +34,6 @@ defmodule ExstreamPlaylistTest do
   end
 
   test "it should build" do
-    assert Exstream.Playlist.build() === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:16\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:08.0,\n/start\n#EXTINF:08.0,\n/end\n#EXT-X-ENDLIST"
+    assert Exstream.Playlist.build(30) === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:08.0,\n/start\n#EXTINF:08.0,\n/end\n#EXT-X-ENDLIST"
   end
 end
