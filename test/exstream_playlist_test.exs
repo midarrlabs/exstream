@@ -24,4 +24,8 @@ defmodule ExstreamPlaylistTest do
   test "it should track information" do
     assert Exstream.Playlist.get_track_information === "#EXTINF:08.0,\n/start\n"
   end
+
+  test "it should get another track information" do
+    assert Exstream.Playlist.get_another_track_information === "#EXTINF:08.0,\n/end\n"
+  end
 end
