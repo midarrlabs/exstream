@@ -31,4 +31,15 @@ defmodule Exstream.Playlist do
   def get_end_list() do
     "#EXT-X-ENDLIST"
   end
+
+  def build() do
+    get_header() <>
+    get_playlist_type() <>
+    get_target_duration() <>
+    get_version() <>
+    get_media_sequence() <>
+    get_track_information() <>
+    get_another_track_information() <>
+    get_end_list()
+  end
 end

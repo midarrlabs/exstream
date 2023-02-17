@@ -32,4 +32,8 @@ defmodule ExstreamPlaylistTest do
   test "it should get end list" do
     assert Exstream.Playlist.get_end_list === "#EXT-X-ENDLIST"
   end
+
+  test "it should build" do
+    assert Exstream.Playlist.build() === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:16\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:08.0,\n/start\n#EXTINF:08.0,\n/end\n#EXT-X-ENDLIST"
+  end
 end
