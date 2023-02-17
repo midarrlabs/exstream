@@ -9,9 +9,7 @@ defmodule Exstream.Playlist do
   end
 
   def get_target_duration(duration) do
-    {integer, _remainder_of_binary} = Integer.parse(duration)
-
-    "#EXT-X-TARGETDURATION:#{ integer }\n"
+    "#EXT-X-TARGETDURATION:#{ duration }\n"
   end
 
   def get_version() do

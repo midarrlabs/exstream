@@ -14,11 +14,21 @@ defmodule Exstream do
   end
 
   def get_duration(%{"format" => %{"duration" => duration}}) do
-    duration
+    {integer, _remainder_of_binary} = Integer.parse(duration)
+
+    integer
   end
 
   def get_result({result, 0}) do
     result
+  end
+
+  def get_one_tenth(n) do
+    floor(n / 10)
+  end
+
+  def get_steps(n) do
+    Enum.to_list(0..floor(n) // get_one_tenth(n))
   end
 
   def probe(file) do
