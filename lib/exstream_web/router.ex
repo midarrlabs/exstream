@@ -25,6 +25,10 @@ defmodule Exstream.Router do
     |> send_file(200, Path.absname("support/end.ts"))
   end
 
+  get "/audio.mp3" do
+    Exstream.Range.video(conn, Path.absname("support/audio.mp3"))
+  end
+
   match _ do
     send_resp(conn, 404, "Oops!")
   end
