@@ -7,7 +7,7 @@ defmodule Exstream.Router do
   @video "test/fixtures/video.mkv"
   @audio "test/fixtures/audio.mp3"
 
-  get "/" do
+  get "/watch" do
     conn
     |> put_resp_content_type("text/html")
     |> send_file(200, Path.absname("lib/exstream_web/index.html"))
@@ -18,9 +18,9 @@ defmodule Exstream.Router do
     |> send_resp(200, Exstream.Playlist.build(Path.absname(@video)))
   end
 
-  get "/start" do
+  get "/watch/:step" do
     conn
-    |> send_resp(200, Exstream.segment(@video, 0))
+    |> send_resp(200, Exstream.segment(@video, String.to_integer(step)))
   end
 
   get "/audio.mp3" do

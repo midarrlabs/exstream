@@ -35,6 +35,10 @@ defmodule Exstream do
     Enum.at(get_steps(duration), step)
   end
 
+  def get_next_step_index(steps, step) do
+    Enum.find_index(steps, fn x -> x > step end)
+  end
+
   def probe(file) do
     System.cmd("ffprobe", [
       "-i", file,
@@ -49,6 +53,7 @@ defmodule Exstream do
 
   def segment(file, step) do
     duration = probe(file) |> get_duration()
+    next_step = Enum.at(get_steps(duration), get_next_step_index(get_steps(duration), step))
 
     {result, _exit_status} = System.cmd("ffmpeg", [
       "-hide_banner",
@@ -57,7 +62,7 @@ defmodule Exstream do
       "-ss", "#{ step }",
       "-i", file,
       "-c", "copy",
-      "-t", "#{ get_one_tenth(duration) }",
+      "-to", "#{ next_step }",
       "-f", "mpegts",
       "pipe:"
     ])
