@@ -77,4 +77,14 @@ defmodule ExstreamTest do
     assert context[:duration]
            |> Exstream.get_step(1) === 3
   end
+
+  test "it should get next step index", context do
+    assert context[:duration]
+           |> Exstream.get_steps()
+           |> Exstream.get_next_step_index(3) === 2
+  end
+
+  test "it should segment" do
+    assert is_binary Exstream.segment(@path, 3)
+  end
 end
