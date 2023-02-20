@@ -12,17 +12,12 @@ defmodule Exstream.Router do
 
   get "/playlist.m3u8" do
     conn
-    |> send_resp(200, Exstream.Playlist.build(Path.absname("support/sample_1080_libx264_aac_30s_video.mkv")))
+    |> send_file(200, Path.absname("support/playlist.m3u8"))
   end
 
   get "/start" do
     conn
-    |> send_file(200, Path.absname("support/start.ts"))
-  end
-
-  get "/end" do
-    conn
-    |> send_file(200, Path.absname("support/end.ts"))
+    |> send_resp(200, Exstream.segment("support/sample_1080_libx264_aac_30s_video.mkv", 0))
   end
 
   get "/audio.mp3" do

@@ -1,7 +1,7 @@
 defmodule ExstreamPlaylistTest do
   use ExUnit.Case
 
-  @path "support/sample_1080_libx264_aac_30s_video.mkv"
+  @path "test/fixtures/video.mkv"
   
   test "it should get header" do
     assert Exstream.Playlist.get_header() === "#EXTM3U\n"

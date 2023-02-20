@@ -1,7 +1,7 @@
 defmodule ExstreamTest do
   use ExUnit.Case
 
-  @path "support/sample_1080_libx264_aac_30s_video.mkv"
+  @path "test/fixtures/video.mkv"
 
   setup do
     [
