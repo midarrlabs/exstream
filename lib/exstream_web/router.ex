@@ -4,6 +4,9 @@ defmodule Exstream.Router do
   plug(:match)
   plug(:dispatch)
 
+  @video "test/fixtures/video.mkv"
+  @audio "test/fixtures/audio.mp3"
+
   get "/" do
     conn
     |> put_resp_content_type("text/html")
@@ -12,16 +15,16 @@ defmodule Exstream.Router do
 
   get "/playlist.m3u8" do
     conn
-    |> send_resp(200, Exstream.Playlist.build(Path.absname("support/sample_1080_libx264_aac_30s_video.mkv")))
+    |> send_resp(200, Exstream.Playlist.build(Path.absname(@video)))
   end
 
   get "/start" do
     conn
-    |> send_resp(200, Exstream.segment("support/sample_1080_libx264_aac_30s_video.mkv", 0))
+    |> send_resp(200, Exstream.segment(@video, 0))
   end
 
   get "/audio.mp3" do
-    Exstream.Range.video(conn, Path.absname("support/audio.mp3"))
+    Exstream.Range.video(conn, Path.absname(@audio))
   end
 
   match _ do

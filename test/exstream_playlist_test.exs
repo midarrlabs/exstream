@@ -1,7 +1,7 @@
 defmodule ExstreamPlaylistTest do
   use ExUnit.Case
 
-  @path "test/fixtures/video.mkv"
+  @video "test/fixtures/video.mkv"
   
   test "it should get header" do
     assert Exstream.Playlist.get_header() === "#EXTM3U\n"
@@ -28,6 +28,6 @@ defmodule ExstreamPlaylistTest do
   end
 
   test "it should build" do
-    assert Exstream.Playlist.build(@path) === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:3,\n?segment=0.ts\n#EXTINF:3,\n?segment=3.ts\n#EXTINF:3,\n?segment=6.ts\n#EXTINF:3,\n?segment=9.ts\n#EXTINF:3,\n?segment=12.ts\n#EXTINF:3,\n?segment=15.ts\n#EXTINF:3,\n?segment=18.ts\n#EXTINF:3,\n?segment=21.ts\n#EXTINF:3,\n?segment=24.ts\n#EXTINF:3,\n?segment=27.ts\n#EXTINF:3,\n?segment=30.ts\n#EXT-X-ENDLIST"
+    assert Exstream.Playlist.build(@video) === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:3,\n?segment=0.ts\n#EXTINF:3,\n?segment=3.ts\n#EXTINF:3,\n?segment=6.ts\n#EXTINF:3,\n?segment=9.ts\n#EXTINF:3,\n?segment=12.ts\n#EXTINF:3,\n?segment=15.ts\n#EXTINF:3,\n?segment=18.ts\n#EXTINF:3,\n?segment=21.ts\n#EXTINF:3,\n?segment=24.ts\n#EXTINF:3,\n?segment=27.ts\n#EXTINF:3,\n?segment=30.ts\n#EXT-X-ENDLIST"
   end
 end

@@ -52,7 +52,6 @@ defmodule Exstream do
   end
 
   def segment(file, step) do
-
     duration = probe(file) |> get_duration()
     next_step = Enum.at(get_steps(duration), get_next_step_index(get_steps(duration), step))
 

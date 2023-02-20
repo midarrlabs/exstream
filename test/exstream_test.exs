@@ -1,13 +1,13 @@
 defmodule ExstreamTest do
   use ExUnit.Case
 
-  @path "test/fixtures/video.mkv"
+  @video "test/fixtures/video.mkv"
 
   setup do
     [
-      packets: Exstream.probe(@path) |> Exstream.get_packets(),
-      keyframe_packets: Exstream.probe(@path) |> Exstream.get_keyframe_packets(),
-      duration: Exstream.probe(@path) |> Exstream.get_duration()
+      packets: Exstream.probe(@video) |> Exstream.get_packets(),
+      keyframe_packets: Exstream.probe(@video) |> Exstream.get_keyframe_packets(),
+      duration: Exstream.probe(@video) |> Exstream.get_duration()
     ]
   end
 
@@ -85,6 +85,6 @@ defmodule ExstreamTest do
   end
 
   test "it should segment" do
-    assert is_binary Exstream.segment(@path, 3)
+    assert is_binary Exstream.segment(@video, 3)
   end
 end
