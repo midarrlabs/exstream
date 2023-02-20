@@ -22,20 +22,12 @@ defmodule ExstreamPlaylistTest do
   test "it should get media sequence" do
     assert Exstream.Playlist.get_media_sequence === "#EXT-X-MEDIA-SEQUENCE:0\n"
   end
-  
-  test "it should get track information" do
-    assert Exstream.Playlist.get_track_information === "#EXTINF:08.0,\n/start\n"
-  end
-
-  test "it should get another track information" do
-    assert Exstream.Playlist.get_another_track_information === "#EXTINF:08.0,\n/end\n"
-  end
 
   test "it should get end list" do
     assert Exstream.Playlist.get_end_list === "#EXT-X-ENDLIST"
   end
 
   test "it should build" do
-    assert Exstream.Playlist.build(@path) === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:08.0,\n/start\n#EXTINF:08.0,\n/end\n#EXT-X-ENDLIST"
+    assert Exstream.Playlist.build(@path) === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:3,\n?segment=0.ts\n#EXTINF:3,\n?segment=3.ts\n#EXTINF:3,\n?segment=6.ts\n#EXTINF:3,\n?segment=9.ts\n#EXTINF:3,\n?segment=12.ts\n#EXTINF:3,\n?segment=15.ts\n#EXTINF:3,\n?segment=18.ts\n#EXTINF:3,\n?segment=21.ts\n#EXTINF:3,\n?segment=24.ts\n#EXTINF:3,\n?segment=27.ts\n#EXTINF:3,\n?segment=30.ts\n#EXT-X-ENDLIST"
   end
 end

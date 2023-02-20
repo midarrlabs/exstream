@@ -20,12 +20,8 @@ defmodule Exstream.Playlist do
     "#EXT-X-MEDIA-SEQUENCE:0\n"
   end
 
-  def get_track_information() do
-    "#EXTINF:08.0,\n/start\n"
-  end
-
-  def get_another_track_information() do
-    "#EXTINF:08.0,\n/end\n"
+  def get_step(duration, step) do
+    "#EXTINF:#{ Exstream.get_one_tenth(duration) },\n?segment=#{ Exstream.get_step(duration, step) }.ts\n"
   end
 
   def get_end_list() do
@@ -41,8 +37,17 @@ defmodule Exstream.Playlist do
     get_target_duration(duration) <>
     get_version() <>
     get_media_sequence() <>
-    get_track_information() <>
-    get_another_track_information() <>
+    get_step(duration, 0) <>
+    get_step(duration, 1) <>
+    get_step(duration, 2) <>
+    get_step(duration, 3) <>
+    get_step(duration, 4) <>
+    get_step(duration, 5) <>
+    get_step(duration, 6) <>
+    get_step(duration, 7) <>
+    get_step(duration, 8) <>
+    get_step(duration, 9) <>
+    get_step(duration, 10) <>
     get_end_list()
   end
 end
