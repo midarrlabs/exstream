@@ -13,14 +13,14 @@ defmodule Exstream.Router do
     |> send_file(200, Path.absname("lib/exstream_web/index.html"))
   end
 
+  get "/segments/:step" do
+    conn
+    |> send_resp(200, Exstream.segment(@video, String.to_integer(step)))
+  end
+
   get "/playlist.m3u8" do
     conn
     |> send_resp(200, Exstream.Playlist.build(Path.absname(@video)))
-  end
-
-  get "/watch/:step" do
-    conn
-    |> send_resp(200, Exstream.segment(@video, String.to_integer(step)))
   end
 
   get "/audio.mp3" do

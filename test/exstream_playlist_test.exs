@@ -28,6 +28,6 @@ defmodule ExstreamPlaylistTest do
   end
 
   test "it should build" do
-    assert Exstream.Playlist.build(@video) === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:3,\n/watch/0\n#EXTINF:3,\n/watch/3\n#EXTINF:3,\n/watch/6\n#EXTINF:3,\n/watch/9\n#EXTINF:3,\n/watch/12\n#EXTINF:3,\n/watch/15\n#EXTINF:3,\n/watch/18\n#EXTINF:3,\n/watch/21\n#EXTINF:3,\n/watch/24\n#EXTINF:3,\n/watch/27\n#EXT-X-ENDLIST"
+    assert Exstream.Playlist.build(@video) === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:3,\n/segments/0\n#EXTINF:3,\n/segments/3\n#EXTINF:3,\n/segments/6\n#EXTINF:3,\n/segments/9\n#EXTINF:3,\n/segments/12\n#EXTINF:3,\n/segments/15\n#EXTINF:3,\n/segments/18\n#EXTINF:3,\n/segments/21\n#EXTINF:3,\n/segments/24\n#EXTINF:3,\n/segments/27\n#EXT-X-ENDLIST"
   end
 end
