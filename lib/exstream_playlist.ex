@@ -21,7 +21,7 @@ defmodule Exstream.Playlist do
   end
 
   def get_step(duration, step, base_url) do
-    "#EXTINF:#{ Exstream.get_one_tenth(duration) },\n#{ base_url }?segment=#{ Exstream.get_step(duration, step) }\n"
+    "#EXTINF:#{ Exstream.get_one_tenth(duration) },\n#{ base_url }&segment=#{ Exstream.get_step(duration, step) }\n"
   end
 
   def get_end_list() do
