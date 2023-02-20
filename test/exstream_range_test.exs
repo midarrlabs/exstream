@@ -7,7 +7,7 @@ defmodule ExstreamRangeTest do
   test "it should range without headers" do
     conn =
       conn(:get, "/")
-      |> Exstream.Range.video(@video)
+      |> Exstream.Range.get_video(@video)
 
     assert conn.status === 206
     assert conn.state === :file
@@ -19,7 +19,7 @@ defmodule ExstreamRangeTest do
     conn =
       conn(:get, "/")
       |> put_req_header("range", "bytes=0-")
-      |> Exstream.Range.video(@video)
+      |> Exstream.Range.get_video(@video)
 
     assert conn.status === 206
     assert conn.state === :file
@@ -31,7 +31,7 @@ defmodule ExstreamRangeTest do
     conn =
       conn(:get, "/")
       |> put_req_header("range", "bytes=12345-")
-      |> Exstream.Range.video(@video)
+      |> Exstream.Range.get_video(@video)
 
     assert conn.status === 206
     assert conn.state === :file
@@ -43,7 +43,7 @@ defmodule ExstreamRangeTest do
     conn =
       conn(:get, "/")
       |> put_req_header("range", "bytes=0-1")
-      |> Exstream.Range.video(@video)
+      |> Exstream.Range.get_video(@video)
 
     assert conn.status === 206
     assert conn.state === :file

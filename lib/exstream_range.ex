@@ -24,7 +24,7 @@ defmodule Exstream.Range do
     |> send_file(206, path, 0, file_size)
   end
 
-  def video(conn, path) do
+  def get_video(conn, path) do
     List.keyfind(conn.req_headers, "range", 0)
     |> handle_range(conn |> put_resp_header("content-type", "video/mp4"), path, File.stat!(path).size)
   end
