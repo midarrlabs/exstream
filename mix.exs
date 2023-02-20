@@ -4,7 +4,7 @@ defmodule Exstream.MixProject do
   def project do
     [
       app: :exstream,
-      version: "0.2.0",
+      version: "0.3.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       description: "Pluggable video streams",
@@ -19,8 +19,7 @@ defmodule Exstream.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
-      mod: {Exstream.Application, []}
+      extra_applications: [:logger]
     ]
   end
 
