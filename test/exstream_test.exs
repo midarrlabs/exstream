@@ -72,4 +72,9 @@ defmodule ExstreamTest do
     assert context[:duration]
            |> Exstream.get_steps() === [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
   end
+
+  test "it should get step", context do
+    assert context[:duration]
+           |> Exstream.get_step(1) === 3
+  end
 end

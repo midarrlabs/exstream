@@ -31,6 +31,10 @@ defmodule Exstream do
     Enum.to_list(0..floor(n) // get_one_tenth(n))
   end
 
+  def get_step(duration, step) do
+    Enum.at(get_steps(duration), step)
+  end
+
   def probe(file) do
     System.cmd("ffprobe", [
       "-i", file,
