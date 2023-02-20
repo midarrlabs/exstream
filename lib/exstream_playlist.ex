@@ -20,15 +20,15 @@ defmodule Exstream.Playlist do
     "#EXT-X-MEDIA-SEQUENCE:0\n"
   end
 
-  def get_step(duration, step) do
-    "#EXTINF:#{ Exstream.get_one_tenth(duration) },\n/segments/#{ Exstream.get_step(duration, step) }\n"
+  def get_step(duration, step, base_url) do
+    "#EXTINF:#{ Exstream.get_one_tenth(duration) },\n#{ base_url }?segment=#{ Exstream.get_step(duration, step) }\n"
   end
 
   def get_end_list() do
     "#EXT-X-ENDLIST"
   end
 
-  def build(path) do
+  def build(path, base_url) do
 
     duration = Exstream.probe(path) |> Exstream.get_duration()
 
@@ -37,16 +37,16 @@ defmodule Exstream.Playlist do
     get_target_duration(duration) <>
     get_version() <>
     get_media_sequence() <>
-    get_step(duration, 0) <>
-    get_step(duration, 1) <>
-    get_step(duration, 2) <>
-    get_step(duration, 3) <>
-    get_step(duration, 4) <>
-    get_step(duration, 5) <>
-    get_step(duration, 6) <>
-    get_step(duration, 7) <>
-    get_step(duration, 8) <>
-    get_step(duration, 9) <>
+    get_step(duration, 0, base_url) <>
+    get_step(duration, 1, base_url) <>
+    get_step(duration, 2, base_url) <>
+    get_step(duration, 3, base_url) <>
+    get_step(duration, 4, base_url) <>
+    get_step(duration, 5, base_url) <>
+    get_step(duration, 6, base_url) <>
+    get_step(duration, 7, base_url) <>
+    get_step(duration, 8, base_url) <>
+    get_step(duration, 9, base_url) <>
     get_end_list()
   end
 end
