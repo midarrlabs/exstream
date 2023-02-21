@@ -42,7 +42,7 @@ defmodule Exstream do
   def probe(file) do
     System.cmd("ffprobe", [
       "-i", file,
-      "-show_entries", "format=duration:packet=pos,pts_time,flags",
+      "-show_entries", "format=duration",
       "-select_streams", "v",
       "-of", "json",
       "-v", "0"

@@ -28,6 +28,6 @@ defmodule ExstreamPlaylistTest do
   end
 
   test "it should build" do
-    assert Exstream.Playlist.build(@video, "/some/base/url") === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:3,\n/some/base/url?segment=0\n#EXTINF:3,\n/some/base/url?segment=3\n#EXTINF:3,\n/some/base/url?segment=6\n#EXTINF:3,\n/some/base/url?segment=9\n#EXTINF:3,\n/some/base/url?segment=12\n#EXTINF:3,\n/some/base/url?segment=15\n#EXTINF:3,\n/some/base/url?segment=18\n#EXTINF:3,\n/some/base/url?segment=21\n#EXTINF:3,\n/some/base/url?segment=24\n#EXTINF:3,\n/some/base/url?segment=27\n#EXT-X-ENDLIST"
+    assert Exstream.Playlist.build(@video, "/some/base/url?token=some-token") === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:30\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:3,\n/some/base/url?token=some-token&segment=0\n#EXTINF:3,\n/some/base/url?token=some-token&segment=3\n#EXTINF:3,\n/some/base/url?token=some-token&segment=6\n#EXTINF:3,\n/some/base/url?token=some-token&segment=9\n#EXTINF:3,\n/some/base/url?token=some-token&segment=12\n#EXTINF:3,\n/some/base/url?token=some-token&segment=15\n#EXTINF:3,\n/some/base/url?token=some-token&segment=18\n#EXTINF:3,\n/some/base/url?token=some-token&segment=21\n#EXTINF:3,\n/some/base/url?token=some-token&segment=24\n#EXTINF:3,\n/some/base/url?token=some-token&segment=27\n#EXT-X-ENDLIST"
   end
 end
