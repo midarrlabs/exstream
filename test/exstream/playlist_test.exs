@@ -22,6 +22,6 @@ defmodule Exstream.Playlist.Test do
   end
 
   test "it should build" do
-    assert Exstream.Playlist.build(%Exstream.Playlist{duration: "00:00:30", url: "/some/base/url?token=some-token"}) === "#EXTM3U\n#EXT-X-PLAYLIST-TYPE:VOD\n#EXT-X-TARGETDURATION:10\n#EXT-X-VERSION:4\n#EXT-X-MEDIA-SEQUENCE:0\n#EXTINF:3,\n/some/base/url?token=some-token&segment=0\n#EXTINF:3,\n/some/base/url?token=some-token&segment=3\n#EXTINF:3,\n/some/base/url?token=some-token&segment=6\n#EXTINF:3,\n/some/base/url?token=some-token&segment=9\n#EXTINF:3,\n/some/base/url?token=some-token&segment=12\n#EXTINF:3,\n/some/base/url?token=some-token&segment=15\n#EXTINF:3,\n/some/base/url?token=some-token&segment=18\n#EXTINF:3,\n/some/base/url?token=some-token&segment=21\n#EXTINF:3,\n/some/base/url?token=some-token&segment=24\n#EXTINF:3,\n/some/base/url?token=some-token&segment=27\n#EXT-X-ENDLIST"
+    assert Exstream.Playlist.build(%Exstream.Playlist{duration: "00:00:30", url: "/some/base/url?token=some-token"}) === File.read!("test/fixtures/playlist.m3u8")
   end
 end
