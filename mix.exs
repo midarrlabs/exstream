@@ -19,7 +19,8 @@ defmodule Exstream.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {Exstream.Application, []}
     ]
   end
 
@@ -29,7 +30,8 @@ defmodule Exstream.MixProject do
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:plug, "~> 1.13"},
       {:plug_cowboy, "~> 2.0"},
-      {:jason, "~> 1.4"}
+      {:jason, "~> 1.4"},
+      {:exile, "~> 0.1.0"}
     ]
   end
 end
