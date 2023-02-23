@@ -2,7 +2,7 @@ defmodule ExstreamRangeTest do
   use ExUnit.Case
   use Plug.Test
 
-  @video "test/fixtures/video.mkv"
+  @video "priv/video.mkv"
 
   test "it should range without headers" do
     conn =

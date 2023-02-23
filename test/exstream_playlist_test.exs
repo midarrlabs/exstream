@@ -1,7 +1,7 @@
 defmodule ExstreamPlaylistTest do
   use ExUnit.Case
 
-  @video "test/fixtures/video.mkv"
+  @video "priv/video.mkv"
   
   test "it should get header" do
     assert Exstream.Playlist.get_header() === "#EXTM3U\n"
