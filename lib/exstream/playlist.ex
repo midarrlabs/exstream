@@ -38,25 +38,26 @@ defmodule Exstream.Playlist do
     result.hour
   end
 
-  def build(%Exstream.Playlist{duration: duration, url: url}) do
+  def get_seconds(duration) do
+    (get_duration_second(duration) + (get_duration_minute(duration) * 60) + (get_duration_hour(duration) * 3600))
+  end
 
-    parsed_duration = get_duration_second(duration)
+  def some_thing(duration, url) do
+    steps = floor((get_seconds(duration) / 10))
+
+    Enum.map_join(1..steps, fn _x ->
+      "#EXTINF:10,\n#{url}&start=0&end=10\n"
+    end)
+  end
+
+  def build(%Exstream.Playlist{duration: duration, url: url}) do
 
     "#EXTM3U\n" <>
     "#EXT-X-PLAYLIST-TYPE:VOD\n" <>
     "#EXT-X-TARGETDURATION:10\n" <>
     "#EXT-X-VERSION:4\n" <>
     "#EXT-X-MEDIA-SEQUENCE:0\n" <>
-    get_step(parsed_duration, 0, url) <>
-    get_step(parsed_duration, 1, url) <>
-    get_step(parsed_duration, 2, url) <>
-    get_step(parsed_duration, 3, url) <>
-    get_step(parsed_duration, 4, url) <>
-    get_step(parsed_duration, 5, url) <>
-    get_step(parsed_duration, 6, url) <>
-    get_step(parsed_duration, 7, url) <>
-    get_step(parsed_duration, 8, url) <>
-    get_step(parsed_duration, 9, url) <>
+    some_thing(duration, url) <>
     "#EXT-X-ENDLIST"
   end
 end
