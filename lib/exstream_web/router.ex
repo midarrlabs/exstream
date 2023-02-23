@@ -20,7 +20,7 @@ defmodule Exstream.Router do
 
   get "/playlist.m3u8" do
     conn
-    |> send_resp(200, Exstream.Playlist.build(Path.absname(@video), "/some/base/url"))
+    |> send_resp(200, Exstream.Playlist.build(%Exstream.Playlist{duration: 30, url: "/some/base/url?token=some-token"}))
   end
 
   get "/audio.mp3" do

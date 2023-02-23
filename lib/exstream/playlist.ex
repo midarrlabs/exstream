@@ -1,11 +1,11 @@
 defmodule Exstream.Playlist do
 
-  defstruct [:url, :duration]
+  defstruct [:duration, :url]
 
-  @type t :: %__MODULE__{url: String.t, duration: String.t}
+  @type t :: %__MODULE__{duration: String.t, url: String.t}
 
-  def get_step(duration, step, base_url) do
-    "#EXTINF:#{ Exstream.get_one_tenth(duration) },\n#{ base_url }&segment=#{ Exstream.get_step(duration, step) }\n"
+  def get_step(duration, step, url) do
+    "#EXTINF:#{ Exstream.get_one_tenth(duration) },\n#{ url }&segment=#{ Exstream.get_step(duration, step) }\n"
   end
 
   def parse_duration(7, duration) do
@@ -38,25 +38,23 @@ defmodule Exstream.Playlist do
     result.hour
   end
 
-  def build(path, base_url) do
-
-    duration = Exstream.probe(path) |> Exstream.get_duration()
+  def build(%Exstream.Playlist{duration: duration, url: url}) do
 
     "#EXTM3U\n" <>
     "#EXT-X-PLAYLIST-TYPE:VOD\n" <>
     "#EXT-X-TARGETDURATION:10\n" <>
     "#EXT-X-VERSION:4\n" <>
     "#EXT-X-MEDIA-SEQUENCE:0\n" <>
-    get_step(duration, 0, base_url) <>
-    get_step(duration, 1, base_url) <>
-    get_step(duration, 2, base_url) <>
-    get_step(duration, 3, base_url) <>
-    get_step(duration, 4, base_url) <>
-    get_step(duration, 5, base_url) <>
-    get_step(duration, 6, base_url) <>
-    get_step(duration, 7, base_url) <>
-    get_step(duration, 8, base_url) <>
-    get_step(duration, 9, base_url) <>
+    get_step(duration, 0, url) <>
+    get_step(duration, 1, url) <>
+    get_step(duration, 2, url) <>
+    get_step(duration, 3, url) <>
+    get_step(duration, 4, url) <>
+    get_step(duration, 5, url) <>
+    get_step(duration, 6, url) <>
+    get_step(duration, 7, url) <>
+    get_step(duration, 8, url) <>
+    get_step(duration, 9, url) <>
     "#EXT-X-ENDLIST"
   end
 end
