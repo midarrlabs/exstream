@@ -8,8 +8,8 @@ defmodule Exstream.Playlist do
     "#EXT-X-PLAYLIST-TYPE:VOD\n"
   end
 
-  def get_target_duration(duration) do
-    "#EXT-X-TARGETDURATION:#{ duration }\n"
+  def get_target_duration() do
+    "#EXT-X-TARGETDURATION:10\n"
   end
 
   def get_version() do
@@ -34,7 +34,7 @@ defmodule Exstream.Playlist do
 
     get_header() <>
     get_playlist_type() <>
-    get_target_duration(duration) <>
+    get_target_duration() <>
     get_version() <>
     get_media_sequence() <>
     get_step(duration, 0, base_url) <>
