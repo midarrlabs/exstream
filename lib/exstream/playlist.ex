@@ -4,11 +4,11 @@ defmodule Exstream.Playlist do
     "#EXTM3U\n"
   end
 
-  def get_playlist_type() do
+  def get_type() do
     "#EXT-X-PLAYLIST-TYPE:VOD\n"
   end
 
-  def get_target_duration() do
+  def get_duration() do
     "#EXT-X-TARGETDURATION:10\n"
   end
 
@@ -16,7 +16,7 @@ defmodule Exstream.Playlist do
     "#EXT-X-VERSION:4\n"
   end
 
-  def get_media_sequence() do
+  def get_sequence() do
     "#EXT-X-MEDIA-SEQUENCE:0\n"
   end
 
@@ -24,7 +24,7 @@ defmodule Exstream.Playlist do
     "#EXTINF:#{ Exstream.get_one_tenth(duration) },\n#{ base_url }&segment=#{ Exstream.get_step(duration, step) }\n"
   end
 
-  def get_end_list() do
+  def get_end() do
     "#EXT-X-ENDLIST"
   end
 
@@ -33,10 +33,10 @@ defmodule Exstream.Playlist do
     duration = Exstream.probe(path) |> Exstream.get_duration()
 
     get_header() <>
-    get_playlist_type() <>
-    get_target_duration() <>
+    get_type() <>
+    get_duration() <>
     get_version() <>
-    get_media_sequence() <>
+    get_sequence() <>
     get_step(duration, 0, base_url) <>
     get_step(duration, 1, base_url) <>
     get_step(duration, 2, base_url) <>
@@ -47,6 +47,6 @@ defmodule Exstream.Playlist do
     get_step(duration, 7, base_url) <>
     get_step(duration, 8, base_url) <>
     get_step(duration, 9, base_url) <>
-    get_end_list()
+    get_end()
   end
 end
