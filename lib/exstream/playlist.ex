@@ -42,22 +42,21 @@ defmodule Exstream.Playlist do
     (get_duration_second(duration) + (get_duration_minute(duration) * 60) + (get_duration_hour(duration) * 3600))
   end
 
-  def some_thing(duration, url) do
+  def get_extinf(duration, url) do
     steps = floor((get_seconds(duration) / 10))
 
-    Enum.map_join(1..steps, fn _x ->
-      "#EXTINF:10,\n#{url}&start=0&end=10\n"
+    Enum.map_join(1..steps, fn step ->
+      "#EXTINF:10,\n#{url}&start=#{ (step * 10) - 10 }&end=#{ step * 10 }\n"
     end)
   end
 
   def build(%Exstream.Playlist{duration: duration, url: url}) do
-
     "#EXTM3U\n" <>
     "#EXT-X-PLAYLIST-TYPE:VOD\n" <>
     "#EXT-X-TARGETDURATION:10\n" <>
     "#EXT-X-VERSION:4\n" <>
     "#EXT-X-MEDIA-SEQUENCE:0\n" <>
-    some_thing(duration, url) <>
+    get_extinf(duration, url) <>
     "#EXT-X-ENDLIST"
   end
 end

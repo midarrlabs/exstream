@@ -6,7 +6,7 @@
 #EXTINF:10,
 /some/base/url?token=some-token&start=0&end=10
 #EXTINF:10,
-/some/base/url?token=some-token&start=0&end=10
+/some/base/url?token=some-token&start=10&end=20
 #EXTINF:10,
-/some/base/url?token=some-token&start=0&end=10
+/some/base/url?token=some-token&start=20&end=30
 #EXT-X-ENDLIST
