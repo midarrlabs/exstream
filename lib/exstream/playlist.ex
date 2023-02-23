@@ -1,5 +1,9 @@
 defmodule Exstream.Playlist do
 
+  defstruct [:url, :duration]
+
+  @type t :: %__MODULE__{url: String.t, duration: String.t}
+
   def get_header() do
     "#EXTM3U\n"
   end
