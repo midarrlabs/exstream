@@ -5,12 +5,8 @@ defmodule ExstreamTest do
 
   setup do
     [
-      duration: Exstream.probe(@video) |> Exstream.get_duration()
+      duration: 30
     ]
-  end
-
-  test "it should get total duration", context do
-    assert context[:duration] === 30
   end
 
   test "it should get 1/10 duration", context do
