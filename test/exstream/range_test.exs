@@ -1,13 +1,11 @@
-defmodule ExstreamRangeTest do
+defmodule Exstream.Range.Test do
   use ExUnit.Case
   use Plug.Test
 
   @video "priv/video.mkv"
 
   test "it should range without headers" do
-    conn =
-      conn(:get, "/")
-      |> Exstream.Range.get_video(@video)
+    conn = Exstream.Range.stream(%Exstream.Range{conn: conn(:get, "/"), path: @video})
 
     assert conn.status === 206
     assert conn.state === :file
@@ -16,10 +14,7 @@ defmodule ExstreamRangeTest do
   end
 
   test "it should range" do
-    conn =
-      conn(:get, "/")
-      |> put_req_header("range", "bytes=0-")
-      |> Exstream.Range.get_video(@video)
+    conn = Exstream.Range.stream(%Exstream.Range{conn: conn(:get, "/") |> put_req_header("range", "bytes=0-"), path: @video})
 
     assert conn.status === 206
     assert conn.state === :file
@@ -28,10 +23,7 @@ defmodule ExstreamRangeTest do
   end
 
   test "it should range seek" do
-    conn =
-      conn(:get, "/")
-      |> put_req_header("range", "bytes=12345-")
-      |> Exstream.Range.get_video(@video)
+    conn = Exstream.Range.stream(%Exstream.Range{conn: conn(:get, "/") |> put_req_header("range", "bytes=12345-"), path: @video})
 
     assert conn.status === 206
     assert conn.state === :file
@@ -40,10 +32,7 @@ defmodule ExstreamRangeTest do
   end
 
   test "it should range Safari probe" do
-    conn =
-      conn(:get, "/")
-      |> put_req_header("range", "bytes=0-1")
-      |> Exstream.Range.get_video(@video)
+    conn = Exstream.Range.stream(%Exstream.Range{conn: conn(:get, "/") |> put_req_header("range", "bytes=0-1"), path: @video})
 
     assert conn.status === 206
     assert conn.state === :file

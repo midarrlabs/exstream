@@ -24,7 +24,7 @@ defmodule Exstream.Router do
   end
 
   get "/audio.mp3" do
-    Exstream.Range.get_video(conn, Path.absname(@audio))
+    Exstream.Range.stream(%Exstream.Range{conn: conn, path: Path.absname(@audio)})
   end
 
   match _ do

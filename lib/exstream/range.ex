@@ -1,13 +1,17 @@
 defmodule Exstream.Range do
   import Plug.Conn
 
-  def handle_range({"range", "bytes=0-1"}, conn, path, file_size) do
+  defstruct [:conn, :path]
+
+  @type t :: %__MODULE__{conn: %Plug.Conn{}, path: String.t}
+
+  defp handle_range({"range", "bytes=0-1"}, conn, path, file_size) do
     conn
     |> put_resp_header("content-range", "bytes 0-1/#{file_size}")
     |> send_file(206, path, 0, 2)
   end
 
-  def handle_range({"range", "bytes=" <> start_pos}, conn, path, file_size) do
+  defp handle_range({"range", "bytes=" <> start_pos}, conn, path, file_size) do
     offset =
       String.split(start_pos, "-")
       |> List.first()
@@ -18,13 +22,13 @@ defmodule Exstream.Range do
     |> send_file(206, path, offset, file_size - offset)
   end
 
-  def handle_range(nil, conn, path, file_size) do
+  defp handle_range(nil, conn, path, file_size) do
     conn
     |> put_resp_header("content-range", "bytes 0-#{file_size - 1}/#{file_size}")
     |> send_file(206, path, 0, file_size)
   end
 
-  def get_video(conn, path) do
+  def stream(%Exstream.Range{conn: %Plug.Conn{} = conn, path: path}) do
     List.keyfind(conn.req_headers, "range", 0)
     |> handle_range(conn |> put_resp_header("content-type", "video/mp4"), path, File.stat!(path).size)
   end
