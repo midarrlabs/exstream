@@ -2,7 +2,7 @@ defmodule Exstream.Range.Test do
   use ExUnit.Case
   use Plug.Test
 
-  @video "priv/video.mkv"
+  @video "priv/Some Video (1234)/video.mkv"
 
   test "it should range without headers" do
     conn = Exstream.Range.stream(%Exstream.Range{conn: conn(:get, "/"), path: @video})
