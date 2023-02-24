@@ -4,8 +4,6 @@ defmodule Exstream.Router do
   plug(:match)
   plug(:dispatch)
 
-  @video "priv/video.mkv"
-
   get "/" do
     conn
     |> put_resp_content_type("text/html")
@@ -15,11 +13,12 @@ defmodule Exstream.Router do
   get "/segment:query" do
     %{"start" => start, "end" => finish} = fetch_query_params(conn).query_params
 
-    Exile.stream!(~w(ffmpeg -copyts  -ss #{ start } -i #{ @video } -c copy -to #{ finish } -f mpegts pipe:1))
-    |> Enum.into(
-         conn
-         |> send_chunked(200)
-       )
+    Exstream.stream(%Exstream{
+      conn: conn,
+      path: "priv/video.mkv",
+      start: start,
+      end: finish
+    })
   end
 
   get "/playlist.m3u8" do

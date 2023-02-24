@@ -1,37 +1,15 @@
 defmodule Exstream do
+  import Plug.Conn
 
-  def get_one_tenth(n) do
-    floor(n / 10)
-  end
+  defstruct [:conn, :path, :start, :end]
 
-  def get_steps(n) do
-    Enum.to_list(0..floor(n) // get_one_tenth(n))
-  end
+  @type t :: %__MODULE__{conn: %Plug.Conn{}, path: String.t, start: String.t, end: String.t}
 
-  def get_step(duration, step) do
-    Enum.at(get_steps(duration), step)
-  end
-
-  def get_next_step_index(steps, step) do
-    Enum.find_index(steps, fn x -> x > step end)
-  end
-
-  def segment(file, step) do
-    duration = 30
-    next_step = Enum.at(get_steps(duration), get_next_step_index(get_steps(duration), step))
-
-    {result, _exit_status} = System.cmd("ffmpeg", [
-      "-hide_banner",
-      "-loglevel", "error",
-      "-copyts",
-      "-ss", "#{ step }",
-      "-i", file,
-      "-c", "copy",
-      "-to", "#{ next_step }",
-      "-f", "mpegts",
-      "pipe:"
-    ])
-
-    result
+  def stream(%Exstream{conn: %Plug.Conn{} = conn, path: path, start: start, end: finish}) do
+    Exile.stream!(~w(ffmpeg -copyts  -ss #{ start } -i #{ path } -c copy -to #{ finish } -f mpegts pipe:1))
+    |> Enum.into(
+         conn
+         |> send_chunked(200)
+       )
   end
 end

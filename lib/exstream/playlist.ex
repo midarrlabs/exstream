@@ -4,10 +4,6 @@ defmodule Exstream.Playlist do
 
   @type t :: %__MODULE__{duration: String.t, url: String.t}
 
-  def get_step(duration, step, url) do
-    "#EXTINF:#{ Exstream.get_one_tenth(duration) },\n#{ url }&segment=#{ Exstream.get_step(duration, step) }\n"
-  end
-
   def parse_duration(7, duration) do
     "0#{ duration }"
   end
