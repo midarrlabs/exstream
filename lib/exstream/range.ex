@@ -3,7 +3,7 @@ defmodule Exstream.Range do
 
   defstruct [:conn, :path]
 
-  @type t :: %__MODULE__{conn: %Plug.Conn{}, path: String.t}
+  @type t :: %__MODULE__{conn: %Plug.Conn{}, path: String.t()}
 
   defp handle_range({"range", "bytes=0-1"}, conn, path, file_size) do
     conn
@@ -30,6 +30,10 @@ defmodule Exstream.Range do
 
   def stream(%Exstream.Range{conn: %Plug.Conn{} = conn, path: path}) do
     List.keyfind(conn.req_headers, "range", 0)
-    |> handle_range(conn |> put_resp_header("content-type", "video/mp4"), path, File.stat!(path).size)
+    |> handle_range(
+      conn |> put_resp_header("content-type", "video/mp4"),
+      path,
+      File.stat!(path).size
+    )
   end
 end

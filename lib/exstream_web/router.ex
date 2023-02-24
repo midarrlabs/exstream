@@ -23,7 +23,13 @@ defmodule Exstream.Router do
 
   get "/playlist.m3u8" do
     conn
-    |> send_resp(200, Exstream.Playlist.build(%Exstream.Playlist{duration: "00:00:30", url: "/segment?token=some-token"}))
+    |> send_resp(
+      200,
+      Exstream.Playlist.build(%Exstream.Playlist{
+        duration: "00:00:30",
+        url: "/segment?token=some-token"
+      })
+    )
   end
 
   match _ do

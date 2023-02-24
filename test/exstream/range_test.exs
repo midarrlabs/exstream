@@ -14,7 +14,11 @@ defmodule Exstream.Range.Test do
   end
 
   test "it should range" do
-    conn = Exstream.Range.stream(%Exstream.Range{conn: conn(:get, "/") |> put_req_header("range", "bytes=0-"), path: @video})
+    conn =
+      Exstream.Range.stream(%Exstream.Range{
+        conn: conn(:get, "/") |> put_req_header("range", "bytes=0-"),
+        path: @video
+      })
 
     assert conn.status === 206
     assert conn.state === :file
@@ -23,7 +27,11 @@ defmodule Exstream.Range.Test do
   end
 
   test "it should range seek" do
-    conn = Exstream.Range.stream(%Exstream.Range{conn: conn(:get, "/") |> put_req_header("range", "bytes=12345-"), path: @video})
+    conn =
+      Exstream.Range.stream(%Exstream.Range{
+        conn: conn(:get, "/") |> put_req_header("range", "bytes=12345-"),
+        path: @video
+      })
 
     assert conn.status === 206
     assert conn.state === :file
@@ -32,7 +40,11 @@ defmodule Exstream.Range.Test do
   end
 
   test "it should range Safari probe" do
-    conn = Exstream.Range.stream(%Exstream.Range{conn: conn(:get, "/") |> put_req_header("range", "bytes=0-1"), path: @video})
+    conn =
+      Exstream.Range.stream(%Exstream.Range{
+        conn: conn(:get, "/") |> put_req_header("range", "bytes=0-1"),
+        path: @video
+      })
 
     assert conn.status === 206
     assert conn.state === :file
