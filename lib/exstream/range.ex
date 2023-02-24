@@ -3,7 +3,7 @@ defmodule Exstream.Range do
 
   defstruct [:conn, :path]
 
-  @type t :: %__MODULE__{conn: %Plug.Conn{}, path: String.t()}
+  @type t :: %Exstream.Range{conn: %Plug.Conn{}, path: String.t()}
 
   defp handle_range({"range", "bytes=0-1"}, conn, path, file_size) do
     conn
