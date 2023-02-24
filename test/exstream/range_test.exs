@@ -10,7 +10,7 @@ defmodule Exstream.Range.Test do
     assert conn.status === 206
     assert conn.state === :file
     assert Enum.member?(conn.resp_headers, {"content-type", "video/mp4"})
-    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-16351753/16351754"})
+    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-1794889/1794890"})
   end
 
   test "it should range" do
@@ -23,7 +23,7 @@ defmodule Exstream.Range.Test do
     assert conn.status === 206
     assert conn.state === :file
     assert Enum.member?(conn.resp_headers, {"content-type", "video/mp4"})
-    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-16351753/16351754"})
+    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-1794889/1794890"})
   end
 
   test "it should range seek" do
@@ -36,7 +36,7 @@ defmodule Exstream.Range.Test do
     assert conn.status === 206
     assert conn.state === :file
     assert Enum.member?(conn.resp_headers, {"content-type", "video/mp4"})
-    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 12345-16351753/16351754"})
+    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 12345-1794889/1794890"})
   end
 
   test "it should range Safari probe" do
@@ -49,6 +49,6 @@ defmodule Exstream.Range.Test do
     assert conn.status === 206
     assert conn.state === :file
     assert Enum.member?(conn.resp_headers, {"content-type", "video/mp4"})
-    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-1/16351754"})
+    assert Enum.member?(conn.resp_headers, {"content-range", "bytes 0-1/1794890"})
   end
 end
