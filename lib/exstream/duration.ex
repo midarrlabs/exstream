@@ -1,15 +1,31 @@
 defmodule Exstream.Duration do
 
+  def parse(<<hour::binary-size(1), ":", minutes::binary-size(2), ":", seconds::binary>>) do
+    "0#{ hour }:#{ minutes }:#{ seconds }"
+  end
+
+  def parse(<<hours::binary-size(2), ":", minutes::binary-size(2), ":", seconds::binary>>) do
+    "#{ hours }:#{ minutes }:#{ seconds }"
+  end
+
+  def parse(<<"0:", seconds::binary>>) do
+    "00:00:#{ seconds }"
+  end
+
+  def parse(<<minute::binary-size(1), ":", seconds::binary>>) do
+    "00:0#{ minute }:#{ seconds }"
+  end
+
+  def parse(<<minutes::binary-size(2), ":", seconds::binary>>) do
+    "00:#{ minutes }:#{ seconds }"
+  end
+
   def parse(7, duration) do
     "0#{duration}"
   end
 
   def parse(8, duration) do
     duration
-  end
-
-  def parse(duration) do
-    String.length(duration) |> parse(duration)
   end
 
   def get_second(duration) do
