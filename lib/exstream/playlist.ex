@@ -4,7 +4,7 @@ defmodule Exstream.Playlist do
   @type t :: %Exstream.Playlist{duration: String.t(), url: String.t()}
 
   defp get_extinf(duration, url) do
-    steps = floor(Exstream.Duration.parse(duration) / 10)
+    steps = floor((Extaima.parse(duration) |> Extaima.seconds()) / 10)
 
     Enum.map_join(1..steps, fn step ->
       "#EXTINF:10,\n#{url}&start=#{step * 10 - 10}&end=#{step * 10}\n"
