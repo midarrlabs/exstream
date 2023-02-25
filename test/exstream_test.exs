@@ -2,7 +2,7 @@ defmodule Exstream.Test do
   use ExUnit.Case
   use Plug.Test
 
-  @video "priv/Some Video (1234)/video.mkv"
+  @video "priv/video.mkv"
 
   test "it should stream" do
     conn = Exstream.stream(%Exstream{
