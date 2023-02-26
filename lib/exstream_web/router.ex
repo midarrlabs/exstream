@@ -15,7 +15,7 @@ defmodule Exstream.Router do
 
     Exstream.stream(%Exstream{
       conn: conn,
-      path: "priv/video.mkv",
+      path: "priv/h264-mp3.mkv",
       start: start,
       end: finish
     })
