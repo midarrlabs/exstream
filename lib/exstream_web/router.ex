@@ -32,6 +32,11 @@ defmodule Exstream.Router do
     )
   end
 
+  get "/range.mp4" do
+    Exstream.Range.stream(%Exstream.Range{conn: conn, path: "priv/h264-mp3.mkv"})
+  end
+
+
   match _ do
     send_resp(conn, 404, "Oops!")
   end
