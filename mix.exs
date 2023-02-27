@@ -4,7 +4,7 @@ defmodule Exstream.MixProject do
   def project do
     [
       app: :exstream,
-      version: "0.15.0",
+      version: "0.16.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       description: "Pluggable video streams",
