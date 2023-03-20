@@ -2,11 +2,7 @@ defmodule Exstream.Application do
   use Application
 
   def start(_type, _args) do
-    children = [
-
-    ]
-
     opts = [strategy: :one_for_one, name: Exstream.Supervisor]
-    Supervisor.start_link(children, opts)
+    Supervisor.start_link([], opts)
   end
 end
