@@ -8,6 +8,8 @@ defmodule Exstream do
   def stream(%Exstream{conn: %Plug.Conn{} = conn, path: path, start: start, end: finish}) do
     Exile.stream!([
       "ffmpeg",
+      "-hide_banner",
+      "-loglevel", "error",
       "-copyts",
       "-ss", "#{ start }",
       "-i", "#{ path }",
