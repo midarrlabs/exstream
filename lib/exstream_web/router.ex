@@ -41,6 +41,3 @@ defmodule Exstream.Router do
     send_resp(conn, 404, "Oops!")
   end
 end
-
-require Logger
-Logger.info("Plug now running on localhost:4040")
