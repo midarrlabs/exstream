@@ -1,0 +1,7 @@
+services:
+
+  exstream:
+    container_name: exstream
+    build: .
+    ports:
+      - 4040:4000
