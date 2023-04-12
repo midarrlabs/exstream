@@ -19,8 +19,8 @@ defmodule ExstreamWeb.PlaylistController do
         "#EXT-X-ENDLIST"
     end
 
-    def index(conn, _params) do
+    def index(conn, %{"duration" => duration, "url" => url}) do
       conn
-      |> send_resp(200, build("00:00:30", "/some/base/url"))
+      |> send_resp(200, build(duration, url))
     end
 end
