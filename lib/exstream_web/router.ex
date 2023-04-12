@@ -24,6 +24,7 @@ defmodule ExstreamWeb.Router do
     pipe_through :api
 
     get "/playlist.m3u8", PlaylistController, :index
+    get "/stream", StreamController, :index
   end
 
   # Enable LiveDashboard in development
