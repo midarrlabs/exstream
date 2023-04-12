@@ -20,10 +20,11 @@ defmodule ExstreamWeb.Router do
     get "/", PageController, :home
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", ExstreamWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", ExstreamWeb do
+    pipe_through :api
+
+    get "/playlist", PlaylistController, :index
+  end
 
   # Enable LiveDashboard in development
   if Application.compile_env(:exstream, :dev_routes) do
