@@ -4,9 +4,9 @@
 #EXT-X-VERSION:4
 #EXT-X-MEDIA-SEQUENCE:0
 #EXTINF:10,
-/some/base/url?start=0&end=10
+/some/url?start=0&end=10
 #EXTINF:10,
-/some/base/url?start=10&end=20
+/some/url?start=10&end=20
 #EXTINF:10,
-/some/base/url?start=20&end=30
+/some/url?start=20&end=30
 #EXT-X-ENDLIST
