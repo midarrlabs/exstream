@@ -45,7 +45,8 @@ defmodule Exstream.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:extaima, "~> 0.3.0"}
+      {:extaima, "~> 0.3.0"},
+      {:exile, "~> 0.1.0"}
     ]
   end
 
