@@ -4,9 +4,9 @@
 #EXT-X-VERSION:4
 #EXT-X-MEDIA-SEQUENCE:0
 #EXTINF:10,
-/some/url?start=0&end=10
+/some/url?path=dev/sample__1080__libx265__ac3__30s__video.mkv&start=0&end=10
 #EXTINF:10,
-/some/url?start=10&end=20
+/some/url?path=dev/sample__1080__libx265__ac3__30s__video.mkv&start=10&end=20
 #EXTINF:10,
-/some/url?start=20&end=30
+/some/url?path=dev/sample__1080__libx265__ac3__30s__video.mkv&start=20&end=30
 #EXT-X-ENDLIST
