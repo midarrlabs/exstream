@@ -18,6 +18,7 @@ defmodule ExstreamWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/watch", PageController, :index
   end
 
   scope "/api", ExstreamWeb do
