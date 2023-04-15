@@ -1,31 +1,9 @@
 defmodule Exstream do
-  import Plug.Conn
+  @moduledoc """
+  Exstream keeps the contexts that define your domain
+  and business logic.
 
-  defstruct [:conn, :path, :start, :end]
-
-  @type t :: %__MODULE__{conn: %Plug.Conn{}, path: String.t(), start: String.t(), end: String.t()}
-
-  def stream(%Exstream{conn: %Plug.Conn{} = conn, path: path, start: start, end: finish}) do
-    Exile.stream!([
-      "ffmpeg",
-      "-hide_banner",
-      "-loglevel", "error",
-      "-ss", "#{ start }",
-      "-i", "#{ path }",
-      "-to", "#{ finish }",
-      "-copyts",
-      "-c:v", "libx264",
-      "-preset", "faster",
-      "-profile:v", "high",
-      "-level:v", "4.0",
-      "-c:a", "aac",
-      "-ac", "2",
-      "-f", "mpegts",
-      "pipe:1"
-    ])
-    |> Enum.into(
-      conn
-      |> send_chunked(200)
-    )
-  end
+  Contexts are also responsible for managing your data, regardless
+  if it comes from the database, an external API or others.
+  """
 end

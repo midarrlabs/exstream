@@ -1,0 +1,10 @@
+services:
+
+  exstream:
+    container_name: exstream
+    build: .
+    ports:
+      - 4040:4000
+    volumes:
+      - ./:/app
+    command: sh -c "mix deps.get && mix phx.server"

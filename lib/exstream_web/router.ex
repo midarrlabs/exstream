@@ -1,43 +1,46 @@
-defmodule Exstream.Router do
-  use Plug.Router
+defmodule ExstreamWeb.Router do
+  use ExstreamWeb, :router
 
-  plug(:match)
-  plug(:dispatch)
-
-  get "/" do
-    conn
-    |> put_resp_content_type("text/html")
-    |> send_file(200, Path.absname("lib/exstream_web/index.html"))
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {ExstreamWeb.Layouts, :root}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
   end
 
-  get "/segment:query" do
-    %{"start" => start, "end" => finish} = fetch_query_params(conn).query_params
-
-    Exstream.stream(%Exstream{
-      conn: conn,
-      path: "priv/h264-mp3.mkv",
-      start: start,
-      end: finish
-    })
+  pipeline :api do
+    plug :accepts, ["json"]
   end
 
-  get "/playlist.m3u8" do
-    conn
-    |> send_resp(
-      200,
-      Exstream.Playlist.build(%Exstream.Playlist{
-        duration: "00:00:30",
-        url: "/segment?token=some-token"
-      })
-    )
+  scope "/", ExstreamWeb do
+    pipe_through :browser
+
+    get "/", PageController, :home
+    get "/watch", PageController, :index
   end
 
-  get "/range.mp4" do
-    Exstream.Range.stream(%Exstream.Range{conn: conn, path: "priv/h264-mp3.mkv"})
+  scope "/api", ExstreamWeb do
+    pipe_through :api
+
+    get "/playlist.m3u8", PlaylistController, :index
+    get "/stream", StreamController, :index
   end
 
+  # Enable LiveDashboard in development
+  if Application.compile_env(:exstream, :dev_routes) do
+    # If you want to use the LiveDashboard in production, you should put
+    # it behind authentication and allow only admins to access it.
+    # If your application does not have an admins-only section yet,
+    # you can use Plug.BasicAuth to set up some basic authentication
+    # as long as you are also using SSL (which you should anyway).
+    import Phoenix.LiveDashboard.Router
 
-  match _ do
-    send_resp(conn, 404, "Oops!")
+    scope "/dev" do
+      pipe_through :browser
+
+      live_dashboard "/dashboard", metrics: ExstreamWeb.Telemetry
+    end
   end
 end
