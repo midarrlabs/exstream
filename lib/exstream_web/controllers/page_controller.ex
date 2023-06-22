@@ -1,11 +1,8 @@
 defmodule ExstreamWeb.PageController do
   use ExstreamWeb, :controller
 
-    def index(conn, %{"path" => path, "duration" => duration}) do
-      render(conn
-        |> assign(:path, path)
-        |> assign(:duration, duration),
-      :index, layout: false)
+    def index(conn, _params) do
+      render(conn, :index, layout: false)
     end
 
   def home(conn, _params) do

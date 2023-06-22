@@ -1,7 +1,11 @@
-<media-player
-    src={"/api/playlist.m3u8?url=/api/stream&path=#{ @path }&duration=#{ @duration }"}
-    controlsList="nodownload"
-    controls
-    autoplay>
-        <media-outlet></media-outlet>
-</media-player>
+<video id="videoPlayer" controls></video>
+
+<script src="http://cdn.dashjs.org/v3.1.0/dash.all.debug.js"></script>
+
+<script>
+    (function(){
+        var url = "/api/stream";
+        var player = dashjs.MediaPlayer().create();
+        player.initialize(document.querySelector("#videoPlayer"), url, true);
+    })();
+</script>

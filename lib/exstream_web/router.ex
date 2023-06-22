@@ -24,8 +24,8 @@ defmodule ExstreamWeb.Router do
   scope "/api", ExstreamWeb do
     pipe_through :api
 
-    get "/playlist.m3u8", PlaylistController, :index
     get "/stream", StreamController, :index
+    get "/:id", ChunkController, :index
   end
 
   # Enable LiveDashboard in development
