@@ -30,7 +30,7 @@ defmodule Exstream.MixProject do
       {:plug, "~> 1.13"},
       {:plug_cowboy, "~> 2.0"},
       {:jason, "~> 1.4"},
-      {:exile, "~> 0.5.0"},
+      {:exile, "~> 0.7.0"},
       {:extaima, "~> 0.3.0"}
     ]
   end
